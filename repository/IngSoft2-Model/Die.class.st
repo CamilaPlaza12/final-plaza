@@ -32,6 +32,11 @@ Die >> initializeWith: aNumberOfFaces [
 	faces := aNumberOfFaces
 ]
 
+{ #category : #action }
+Die >> maxAmount [
+	^faces
+]
+
 { #category : #actions }
 Die >> throw [
 

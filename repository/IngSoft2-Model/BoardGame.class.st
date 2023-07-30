@@ -14,7 +14,9 @@ Class {
 		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
-		'croupier'
+		'croupier',
+		'spaceshipInJail',
+		'diceThrownAmount'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -71,6 +73,12 @@ BoardGame >> applyHyperJumpEffect: parsecs [
 ]
 
 { #category : #effects }
+BoardGame >> applyJailEffect [
+
+	spaceshipInJail := true
+]
+
+{ #category : #effects }
 BoardGame >> applyMoonWalkEffect: cellsBackward [
 
 	(spaceshipPositions select: [ :spaceshipPosition | 
@@ -90,6 +98,14 @@ BoardGame >> dealACardEffect [
 	croupier dealACardTo: playingSpaceshipPosition spaceships.
 ]
 
+{ #category : #jail }
+BoardGame >> highestPossibleScore [
+
+	| totalMaxAmount |
+	totalMaxAmount := (dice collect: [ :die | die maxAmount ]) at: 1.
+	^ totalMaxAmount = diceThrownAmount
+]
+
 { #category : #'instance creation' }
 BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [ 
 
@@ -103,6 +119,7 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	lastCellEffect := NoEffect new.
 	croupier := aCroupier.
 	croupier dealCardsWhenGameIsStartedTo: spaceships.
+	spaceshipInJail := false.
 	self spaceshipsInitialization.
 ]
 
@@ -213,8 +230,9 @@ BoardGame >> ranking [
 { #category : #action }
 BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 
-	self moves: playingSpaceshipPosition to: aNumber.
-
+	self validationSpaceshipHeldInJail.
+	spaceshipInJail ifFalse: [ 
+		self moves: playingSpaceshipPosition to: aNumber ].
 	self applyEffect
 ]
 
@@ -282,13 +300,12 @@ BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
 { #category : #action }
 BoardGame >> throwDice [
 
-	| result |
-	result := 0.
-	dice do: [ :each | result := result + each throw ].
-	^ result
+	diceThrownAmount := 0.
+	dice do: [ :each | diceThrownAmount := diceThrownAmount + each throw ].
+	^ diceThrownAmount
 ]
 
-{ #category : #cards }
+{ #category : #action }
 BoardGame >> totalAmount [
 
 	^ self throwDice + (croupier permanentCardsOf: playingSpaceshipPosition spaceships).
@@ -356,6 +373,13 @@ BoardGame >> validateWinner: aSpaceshipPosition [
 			isOver := true.
 			winner := aSpaceshipPosition spaceships ]
 		ifFalse: [  ]
+]
+
+{ #category : #validation }
+BoardGame >> validationSpaceshipHeldInJail [
+
+	spaceshipInJail ifTrue: [ 
+		self highestPossibleScore ifTrue: [ spaceshipInJail := false ] ]
 ]
 
 { #category : #'instance variable' }

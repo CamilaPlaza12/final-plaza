@@ -53,6 +53,11 @@ LoadedDie >> initializeWith: aSequence [
 	
 ]
 
+{ #category : #action }
+LoadedDie >> maxAmount [
+	^sequence max.
+]
+
 { #category : #'instance variables' }
 LoadedDie >> sequence [
 	^ sequence

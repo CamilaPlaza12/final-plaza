@@ -93,3 +93,11 @@ self assert: aLoadedDie throw equals: 3.
 self assert: aLoadedDie throw equals: 1.
 
 ]
+
+{ #category : #tests }
+DieTest >> test06WhenADieIsAskedMaxAmountPossibleThenDieFaces [
+
+	| aDie |
+	aDie := Die of: 10.
+	self assert: aDie maxAmount equals: aDie faces
+]
