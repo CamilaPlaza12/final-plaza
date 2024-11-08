@@ -1,15 +1,16 @@
 Class {
-	#name : #ParsecTest,
-	#superclass : #TestCase,
+	#name : 'ParsecTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'cellEffects',
 		'aDeckOfCards',
 		'aCroupier'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 ParsecTest >> setUp [
 	super setUp.
 	aDeckOfCards := DeckOfCards with: (OrderedCollection
@@ -20,7 +21,7 @@ ParsecTest >> setUp [
 	aCroupier := Croupier handling: aDeckOfCards
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ParsecTest >> test01WhenASpaceshipLandsOnHyperJumpwWithParsecsAndLightYearsThenMovesForward [
 
 	| spaceships aBoard aBoardGame |
@@ -57,7 +58,7 @@ ParsecTest >> test01WhenASpaceshipLandsOnHyperJumpwWithParsecsAndLightYearsThenM
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ParsecTest >> test02WhenABoardInLightYearsAndSpaceshipLandsOnHyperJumpThenSpacechipMovesForward [
 
 	| spaceships aBoard aBoardGame |
@@ -94,7 +95,7 @@ ParsecTest >> test02WhenABoardInLightYearsAndSpaceshipLandsOnHyperJumpThenSpacec
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ParsecTest >> test03WhenABoardInNegativeLightYearsAndSpaceshipLandsOnHyperJumpThenSpacechipMoves [
 
 	| spaceships aBoard aBoardGame |

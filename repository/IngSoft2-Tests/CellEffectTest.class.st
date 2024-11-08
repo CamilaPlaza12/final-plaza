@@ -1,14 +1,15 @@
 Class {
-	#name : #CellEffectTest,
-	#superclass : #TestCase,
+	#name : 'CellEffectTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'aDeckOfCards',
 		'aCroupier'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 CellEffectTest >> setUp [
 
 	super setUp.
@@ -20,7 +21,7 @@ CellEffectTest >> setUp [
 	aCroupier := Croupier handling: aDeckOfCards
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test01WhenACellIsSpeedUpThenSpaceshipMovesFourPositions [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -48,7 +49,7 @@ CellEffectTest >> test01WhenACellIsSpeedUpThenSpaceshipMovesFourPositions [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky')round equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test02WhenACellSpeedUpThenSpaceshipMovesTwoRounds [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -75,7 +76,7 @@ CellEffectTest >> test02WhenACellSpeedUpThenSpaceshipMovesTwoRounds [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 3.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test03WhenAllSpaceshipsLandOnSpeedUpCellsThenEffectIsApplied [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -115,7 +116,7 @@ CellEffectTest >> test03WhenAllSpaceshipsLandOnSpeedUpCellsThenEffectIsApplied [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test04WhenACellIsWormHoleThenSpaceshipMovesBackwardsFourPositions [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -149,7 +150,7 @@ CellEffectTest >> test04WhenACellIsWormHoleThenSpaceshipMovesBackwardsFourPositi
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test05WhenABoardOfTwoCellsAndASpaceshipLandsOnWormHoleThenGoesBackTwoRounds [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -176,7 +177,7 @@ CellEffectTest >> test05WhenABoardOfTwoCellsAndASpaceshipLandsOnWormHoleThenGoes
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test06WhenASpaceshipInRoundOneLandsOnWormHoleAndInPositionLessThanFourThenGoesToStart [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -211,7 +212,7 @@ CellEffectTest >> test06WhenASpaceshipInRoundOneLandsOnWormHoleAndInPositionLess
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test07WhenACellIsAtomicBombThenSpaceshipsMovesBackwardsToStart [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -245,7 +246,7 @@ CellEffectTest >> test07WhenACellIsAtomicBombThenSpaceshipsMovesBackwardsToStart
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test08WhenACellIsAtomicBombThenAllSpaceshipsMovesBackwardsToStart [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -290,7 +291,7 @@ CellEffectTest >> test08WhenACellIsAtomicBombThenAllSpaceshipsMovesBackwardsToSt
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test09WhenACellIsAtomicBombThenSpaceshipsMovesBackwardsAndRoundDoesNotChange [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -322,7 +323,7 @@ CellEffectTest >> test09WhenACellIsAtomicBombThenSpaceshipsMovesBackwardsAndRoun
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 3.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test10WhenASpaceshipLandsOnMoonWalkThenOtherSpaceshipsChangePositions [
 
 	| spaceships aBoard aBoardGame cellEffects aMoonWalkEffect |
@@ -365,7 +366,7 @@ CellEffectTest >> test10WhenASpaceshipLandsOnMoonWalkThenOtherSpaceshipsChangePo
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test11WhenASpaceshipsLandOnWormHoleEffectAndLandsOnCellWithEffectThenEffectNotApplied [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -399,7 +400,7 @@ CellEffectTest >> test11WhenASpaceshipsLandOnWormHoleEffectAndLandsOnCellWithEff
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test12WhenAGameIsPlayedWithCellsEffectThenSpaceshipsRanking [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -438,7 +439,7 @@ CellEffectTest >> test12WhenAGameIsPlayedWithCellsEffectThenSpaceshipsRanking [
 		equals: (OrderedCollection with: 'Cami' with: 'Delfi' with: 'Vicky')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test13ASpaceshipLandsOnHyperJumpThenMovesOneCell [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -466,7 +467,7 @@ CellEffectTest >> test13ASpaceshipLandsOnHyperJumpThenMovesOneCell [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test14ASpaceshipLandsOnHyperJumpThenMovesTwoRounds [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -494,7 +495,7 @@ CellEffectTest >> test14ASpaceshipLandsOnHyperJumpThenMovesTwoRounds [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test15ASpaceshipLandsOnHyperJumpThenMovesTwoCells [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -521,7 +522,7 @@ CellEffectTest >> test15ASpaceshipLandsOnHyperJumpThenMovesTwoCells [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test16WhenTwoSpaceshipsLandsOnHyperJumpThenMovesToTheirNewPositions [
 
 	| spaceships aBoard aBoardGame cellEffects |
@@ -558,7 +559,7 @@ CellEffectTest >> test16WhenTwoSpaceshipsLandsOnHyperJumpThenMovesToTheirNewPosi
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test17WhenASpaceshipLandsInAHyperJumpWithNegativeValuesThenMovesBackwards [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -587,7 +588,7 @@ CellEffectTest >> test17WhenASpaceshipLandsInAHyperJumpWithNegativeValuesThenMov
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test18WhenASpaceshipLandsInHyperJumpInRoundOneThenMovesToInitialPosition [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -617,7 +618,7 @@ CellEffectTest >> test18WhenASpaceshipLandsInHyperJumpInRoundOneThenMovesToIniti
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test19WhenSpaceshipLandsInHyperJumpThenGoesBackTwoRounds [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -650,7 +651,7 @@ CellEffectTest >> test19WhenSpaceshipLandsInHyperJumpThenGoesBackTwoRounds [
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test20WhenASpaceshipPlaysAnHyperJumpWithNegativeParsecValueThenGoesBack2Rounds [
 
 	| spaceships aBoard aBoardGame cellEffects aHyperJumpEffect |
@@ -683,7 +684,7 @@ CellEffectTest >> test20WhenASpaceshipPlaysAnHyperJumpWithNegativeParsecValueThe
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CellEffectTest >> test21WhenThreeSpaceshipPlaysAndACellSpeedUpThenSpaceshipMovesWithEffect [
 
 	| spaceships aBoard aBoardGame cellEffects |

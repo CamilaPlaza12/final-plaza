@@ -1,6 +1,6 @@
 Class {
-	#name : #Cell,
-	#superclass : #Object,
+	#name : 'Cell',
+	#superclass : 'Object',
 	#instVars : [
 		'number',
 		'effect'
@@ -9,29 +9,30 @@ Class {
 		'number',
 		'effect'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Cell class >> on: aCellNumber of: anEffect [
 
 	^ self new initializeOf: aCellNumber and: anEffect
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 Cell >> effect [
 
 	^ effect
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Cell >> initializeOf: aCellNumber and: anEffect [
 
 	number := aCellNumber.
 	effect := anEffect
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 Cell >> quantity [
 
 	^ number

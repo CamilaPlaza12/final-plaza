@@ -1,43 +1,44 @@
 Class {
-	#name : #CancellationCard,
-	#superclass : #Object,
+	#name : 'CancellationCard',
+	#superclass : 'Object',
 	#instVars : [
 		'cardId'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 CancellationCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
 	
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CancellationCard >> id [
 	^cardId 
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CancellationCard >> id: number [ 
 	cardId:= number.
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CancellationCard >> name [
 	^'cancellation'.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 CancellationCard >> playOn: aCroupier to: aCardPlayers [ 
 	Error signal: 'You have to choose a card.'.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 CancellationCard >> playOn: aCroupier toAll: aCardPlayers [ 
 	Error signal: 'You have to choose a card.'.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 CancellationCard >> playOn: aCroupier toSelected: card [ 
 	
 	aCroupier cancellationCardTo: card

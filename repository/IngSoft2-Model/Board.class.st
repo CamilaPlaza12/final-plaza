@@ -1,16 +1,17 @@
 Class {
-	#name : #Board,
-	#superclass : #Object,
+	#name : 'Board',
+	#superclass : 'Object',
 	#instVars : [
 		'amountOfCells',
 		'cellsEffects',
 		'parsecs',
 		'parsecsPerCell'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Board class >> of: aCollectionOfCellsEffects withLenght: aMeasure [
 
 	self validateCanExistWith: aCollectionOfCellsEffects.
@@ -19,26 +20,26 @@ Board class >> of: aCollectionOfCellsEffects withLenght: aMeasure [
 		  withLenght: aMeasure.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Board class >> validateCanExistWith: cellsEffectsCollection [
 
 	cellsEffectsCollection size > 1 ifFalse: [ 
 		Error signal: 'Cannot create board with a negative amount of cells' ]
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 Board >> anAmountOfCells [
 
 	^ amountOfCells
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 Board >> cellsEffect [
 
 	^ cellsEffects
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Board >> initializeOf: aCollectionOfCellsEffects withLenght: aMeasure [
 
 	cellsEffects := aCollectionOfCellsEffects.
@@ -47,7 +48,7 @@ Board >> initializeOf: aCollectionOfCellsEffects withLenght: aMeasure [
 	parsecsPerCell := parsecs quantity // amountOfCells.
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 Board >> parsecsPerCell [
 
 	^ parsecsPerCell 

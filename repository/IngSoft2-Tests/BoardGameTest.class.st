@@ -1,15 +1,16 @@
 Class {
-	#name : #BoardGameTest,
-	#superclass : #TestCase,
+	#name : 'BoardGameTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'cellEffects',
 		'aDeckOfCards',
 		'aCroupier'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> setUp [
 
 	super setUp.
@@ -33,7 +34,7 @@ BoardGameTest >> setUp [
 	aCroupier := Croupier handling: aDeckOfCards
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
@@ -43,7 +44,7 @@ BoardGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErr
 			self assert: error messageText equals: anErrorMessage ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test01WhenCreationOfBoardGameWithRepeatedSpaceshipsThenCannotCreate [
 	|spaceships|
 	spaceships := OrderedCollection with: 'Cami' with: 'Vicky' with: 'Cami'.
@@ -59,7 +60,7 @@ BoardGameTest >> test01WhenCreationOfBoardGameWithRepeatedSpaceshipsThenCannotCr
 		withMessage: 'Cannot create board with repeated spaceships'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test02WhenALoadedDieIsThrownThenASpaceshipMovesForwardOnePosition [
 
 	| aBoardGame aBoard aLoadedDie spaceships |
@@ -80,7 +81,7 @@ BoardGameTest >> test02WhenALoadedDieIsThrownThenASpaceshipMovesForwardOnePositi
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test03WhenASpaceshipWinsThenGameOver [
 
 	| spaceships aBoard aBoardGame |
@@ -110,7 +111,7 @@ BoardGameTest >> test03WhenASpaceshipWinsThenGameOver [
 		withMessage: 'There is a winner, you cant keep moving forward'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test04WhenTwoSpaceshipPlayThenSpaceship1Wins [
 
 	| spaceships aBoard aBoardGame |
@@ -138,7 +139,7 @@ BoardGameTest >> test04WhenTwoSpaceshipPlayThenSpaceship1Wins [
 	self assert: aBoardGame winner equals: 'Vicky'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test05WhenAllSpaceshipsPositionsThenAnOrderedCollection [
 
 	| spaceships aBoard aBoardGame |
@@ -160,7 +161,7 @@ BoardGameTest >> test05WhenAllSpaceshipsPositionsThenAnOrderedCollection [
 		equals: (OrderedCollection with: 5 with: 3)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test06WhenTwoSpaceshipsPlaysThenSpaceshipPositions [
 
 	| spaceships aBoard aBoardGame |
@@ -181,7 +182,7 @@ BoardGameTest >> test06WhenTwoSpaceshipsPlaysThenSpaceshipPositions [
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test07WhenItsNotASpaceshipsTruenThenCannotPlay [
 
 	| spaceships aBoard aBoardGame |
@@ -201,7 +202,7 @@ BoardGameTest >> test07WhenItsNotASpaceshipsTruenThenCannotPlay [
 		withMessage: 'Its not your turn'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test08WhenABoardGameWithNoSpaceshipsThenFailsCreation [
 
 	self
@@ -215,7 +216,7 @@ BoardGameTest >> test08WhenABoardGameWithNoSpaceshipsThenFailsCreation [
 		withMessage: 'Cannot create board with no spaceships'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test09WhenASpaceshipAdvanceTwoRoundsThenCurrentPositionAndRound [
 
 	| spaceships aBoard aBoardGame |
@@ -239,7 +240,7 @@ BoardGameTest >> test09WhenASpaceshipAdvanceTwoRoundsThenCurrentPositionAndRound
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test10WhenASpaceshipAdvanceTwoRoundsThenGameIsOver [
 
 	| spaceships aBoard aBoardGame |
@@ -263,7 +264,7 @@ BoardGameTest >> test10WhenASpaceshipAdvanceTwoRoundsThenGameIsOver [
 		withMessage: 'There is a winner, you cant keep moving forward'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardGameTest >> test11WhenABoardGameIsPlayedThenThereIsNotAWinner [
 
 	| spaceships aBoard aBoardGame |

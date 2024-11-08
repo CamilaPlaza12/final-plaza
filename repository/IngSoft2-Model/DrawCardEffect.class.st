@@ -1,10 +1,11 @@
 Class {
-	#name : #DrawCardEffect,
-	#superclass : #Object,
-	#category : #'IngSoft2-Model'
+	#name : 'DrawCardEffect',
+	#superclass : 'Object',
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 DrawCardEffect >> implementOn: aBoardGame [ 
 	aBoardGame dealACardEffect.
 ]

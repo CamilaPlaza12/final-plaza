@@ -1,10 +1,11 @@
 Class {
-	#name : #SpeedUpEffect,
-	#superclass : #Object,
-	#category : #'IngSoft2-Model'
+	#name : 'SpeedUpEffect',
+	#superclass : 'Object',
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 SpeedUpEffect >> implementOn: aBoardGame [
 
 	aBoardGame applyMovingEffect: 4.

@@ -1,28 +1,29 @@
 Class {
-	#name : #Parsec,
-	#superclass : #Object,
+	#name : 'Parsec',
+	#superclass : 'Object',
 	#instVars : [
 		'quantity'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Parsec class >> of: aQuantity [ 
 	^(self new) initializeOf: aQuantity .
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Parsec >> initializeOf: aQuantity [
 	quantity := aQuantity.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Parsec >> parsecs [
 	^self.
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 Parsec >> quantity [
 	^quantity .
 ]

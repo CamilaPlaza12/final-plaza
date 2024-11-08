@@ -1,10 +1,11 @@
 Class {
-	#name : #DieTest,
-	#superclass : #TestCase,
-	#category : #'IngSoft2-Tests'
+	#name : 'DieTest',
+	#superclass : 'TestCase',
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 DieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
@@ -14,12 +15,12 @@ DieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMess
 			self assert: error messageText equals: anErrorMessage ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 DieTest >> test01WhenALoadedDieWithNegativeSequenceThenCannotCreate [
 self should: [ LoadedDie of: #(-1)] raise: Error withMessage: 'Cannot create die with value less than 0'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 DieTest >> test02WhenAGameIsPlayedWithDifferentFacedDiceThenSpaceshipPositions [
 
 	| spaceships aBoard aBoardGame cellEffects aDeckOfCards aCroupier |
@@ -68,14 +69,14 @@ DieTest >> test02WhenAGameIsPlayedWithDifferentFacedDiceThenSpaceshipPositions [
 		equals: 8
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 DieTest >> test03WhenADieIsCreatedWithNegativeFacesThenCannotCreate [
 self should: [ Die of: 1 ] raise: Error withMessage: 'Cannot create die with 2 or less amount of faces'.
 
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 DieTest >> test04WhenADieThrowsThenItIsARandomBetweenOneAndHisAmountOfFaces [
 | aDie |
 aDie := Die of: 10.
@@ -83,7 +84,7 @@ self assert: ((aDie throw) between: 1 and: (aDie faces)).
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 DieTest >> test05WhenALoadedDieIsThrown4TimesWithSequenceValues1231ThenSequenceIsValid [
 |aLoadedDie|
 aLoadedDie := LoadedDie of: #(1 2 3) .

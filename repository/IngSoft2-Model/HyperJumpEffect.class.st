@@ -1,20 +1,21 @@
 Class {
-	#name : #HyperJumpEffect,
-	#superclass : #Object,
+	#name : 'HyperJumpEffect',
+	#superclass : 'Object',
 	#instVars : [
 		'jumps',
 		'jumpsIndex'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HyperJumpEffect class >> with: aSequenceOfJumps [
 
 	^ self new initializeWith: aSequenceOfJumps
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 HyperJumpEffect >> implementOn: aBoardGame [
 
 	| value |
@@ -24,7 +25,7 @@ HyperJumpEffect >> implementOn: aBoardGame [
 	aBoardGame applyHyperJumpEffect: (value parsecs quantity).
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HyperJumpEffect >> initializeWith: aSequenceOfJumps [
 
 	jumps := aSequenceOfJumps.

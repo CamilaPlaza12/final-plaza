@@ -1,37 +1,38 @@
 Class {
-	#name : #RedoCard,
-	#superclass : #Object,
+	#name : 'RedoCard',
+	#superclass : 'Object',
 	#instVars : [
 		'cardId'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 RedoCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
 	
 	aBoardGame validateRedoCard
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 RedoCard >> id [
 
 	^ cardId
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 RedoCard >> id: number [
 
 	cardId := number
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 RedoCard >> name [
 
 	^ 'redo'
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 RedoCard >> playOn: aCroupier to: aCardPlayers [
 
 	| lastCardPlayers |
@@ -42,7 +43,7 @@ RedoCard >> playOn: aCroupier to: aCardPlayers [
 	aCroupier play: lastCardPlayers
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 RedoCard >> playOn: aCroupier toAll: aCardPlayers [
 
 	| lastCardPlayers |
@@ -53,7 +54,7 @@ RedoCard >> playOn: aCroupier toAll: aCardPlayers [
 	aCroupier playOnAll: lastCardPlayers
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 RedoCard >> playOn: aCroupier toSelected: card [
 
 	aCroupier play: aCroupier lastCardPlayed forSelected: card

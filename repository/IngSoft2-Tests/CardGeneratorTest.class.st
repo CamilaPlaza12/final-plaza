@@ -1,10 +1,11 @@
 Class {
-	#name : #CardGeneratorTest,
-	#superclass : #TestCase,
-	#category : #'IngSoft2-Tests'
+	#name : 'CardGeneratorTest',
+	#superclass : 'TestCase',
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 CardGeneratorTest >> test01WhenACardGeneratorCreatesCardsThenADeckOfCardsCreated [
 
 	| aCardGenerator aDeckOfCards |

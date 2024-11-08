@@ -1,10 +1,11 @@
 Class {
-	#name : #BoardTest,
-	#superclass : #TestCase,
-	#category : #'IngSoft2-Tests'
+	#name : 'BoardTest',
+	#superclass : 'TestCase',
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
@@ -14,7 +15,7 @@ BoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 			self assert: error messageText equals: anErrorMessage ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BoardTest >> test01WhenABoardWithNegativeAmountOfCellsThenFailsCreation [
 
 	self

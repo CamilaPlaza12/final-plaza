@@ -1,55 +1,56 @@
 Class {
-	#name : #SpeedCard,
-	#superclass : #Object,
+	#name : 'SpeedCard',
+	#superclass : 'Object',
 	#instVars : [
 		'cardId'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #action }
+{ #category : 'action' }
 SpeedCard >> canBePlayedIn: aBoardGame for: aSpaceship [
 
 	aBoardGame validatePermanentPlayFor: aSpaceship
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 SpeedCard >> id [
 
 	^ cardId
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpeedCard >> id: number [
 
 	cardId := number
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 SpeedCard >> implementOn: aBoardGame [
 
 	^ 1
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 SpeedCard >> name [
 
 	^ 'speed'
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 SpeedCard >> playOn: aCroupier to: aCardPlayers [
 
 	aCroupier recordPermanent: aCardPlayers
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 SpeedCard >> playOn: aCroupier toAll: aCardPlayers [
 
 	Error signal: 'To play card, choose a player'
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 SpeedCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
 	
 	Error signal: 'To play card, choose a player'.

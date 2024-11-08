@@ -1,6 +1,6 @@
 Class {
-	#name : #CroupierTest,
-	#superclass : #TestCase,
+	#name : 'CroupierTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'cellEffects',
 		'aDeckOfCards',
@@ -11,10 +11,11 @@ Class {
 		'aRepeatCard',
 		'aRedoCard'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 CroupierTest >> setUp [
 
 	super setUp.
@@ -38,7 +39,7 @@ CroupierTest >> setUp [
 	aRedoCard := RedoCard new
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 CroupierTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
@@ -48,7 +49,7 @@ CroupierTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErro
 			self assert: error messageText equals: anErrorMessage ].
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 CroupierTest >> test01WhenASpaceshipPlaysASpeedCardThenStaysOnTheGame [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -86,7 +87,7 @@ CroupierTest >> test01WhenASpaceshipPlaysASpeedCardThenStaysOnTheGame [
 		equals: 6
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 CroupierTest >> test02WhenTwoSpeedCardsAffectASpaceshipThenSpaceshipMovesAffected [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -123,7 +124,7 @@ CroupierTest >> test02WhenTwoSpeedCardsAffectASpaceshipThenSpaceshipMovesAffecte
 		equals: 8
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 CroupierTest >> test03WhenSpaceshipTriesToThrowSpeedCardThenCannotThrowIt [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -151,7 +152,7 @@ CroupierTest >> test03WhenSpaceshipTriesToThrowSpeedCardThenCannotThrowIt [
 		withMessage: 'You do not have that card'
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 CroupierTest >> test04WhenASpaceshipPlaysOverloadCardThenAffectedSpaceshipIsMovesTwoLessThanTotalDiceThrown [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -179,7 +180,7 @@ CroupierTest >> test04WhenASpaceshipPlaysOverloadCardThenAffectedSpaceshipIsMove
 		equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test05WhenSpaceshipPlaysAccelerationCardThenAllSpaceshipIncrementsOneMove [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -214,7 +215,7 @@ CroupierTest >> test05WhenSpaceshipPlaysAccelerationCardThenAllSpaceshipIncremen
 		equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenCannotThrowIt [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -244,7 +245,7 @@ CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		withMessage: 'Its not your turn'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test07WhenSpaceshipPlaysDifferentPermanentCardsThenSpaceshipsMovesAreAffected [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -287,7 +288,7 @@ CroupierTest >> test07WhenSpaceshipPlaysDifferentPermanentCardsThenSpaceshipsMov
 		equals: 8
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test08WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenCannotThrowIt [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -316,7 +317,7 @@ CroupierTest >> test08WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		withMessage: 'That spaceship doesn´t exists'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test09WhenASpaceshipPlaysACancellationCardThenAffectedSpaceshipMovesWithoutCardEffect [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -355,7 +356,7 @@ CroupierTest >> test09WhenASpaceshipPlaysACancellationCardThenAffectedSpaceshipM
 		equals: 7
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test10WhenASpaceshipCancelsAccelerationCardThenAllSpaceshipsAreAffected [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -395,7 +396,7 @@ CroupierTest >> test10WhenASpaceshipCancelsAccelerationCardThenAllSpaceshipsAreA
 		equals: 7
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test11WhenASpaceshipLandsOnACardEffectCellThenAnotherCardIsDealed [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -429,7 +430,7 @@ CroupierTest >> test11WhenASpaceshipLandsOnACardEffectCellThenAnotherCardIsDeale
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test12WhenASpaceshipPlaysACancellationCardButThereAreNotPermanentCardOnGameThenCannotPlayCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -460,7 +461,7 @@ CroupierTest >> test12WhenASpaceshipPlaysACancellationCardButThereAreNotPermanen
 		withMessage: 'That card does not exist'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test13WhenASpaceshipPlaysCancellationCardThenCardDoesNotExists [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -498,7 +499,7 @@ CroupierTest >> test13WhenASpaceshipPlaysCancellationCardThenCardDoesNotExists [
 		withMessage: 'That card does not exist'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test14WhenASpaceshipsThrowsARedoAndLastCardASpeedThenSpaceshipsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -537,7 +538,7 @@ CroupierTest >> test14WhenASpaceshipsThrowsARedoAndLastCardASpeedThenSpaceshipsA
 		equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test15WhenASpaceshipsThrowsARedoAndLastCardAOverloadThenSpaceshipsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -576,7 +577,7 @@ CroupierTest >> test15WhenASpaceshipsThrowsARedoAndLastCardAOverloadThenSpaceshi
 		equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test16WhenASpaceshipsThrowsTwoRedoAndLastCardASpeedThenSpaceshipsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -614,7 +615,7 @@ CroupierTest >> test16WhenASpaceshipsThrowsTwoRedoAndLastCardASpeedThenSpaceship
 		equals: 5
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test17WhenASpaceshipsThrowsARedoAndLastCardAAccelerationThenSpaceshipsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -653,7 +654,7 @@ CroupierTest >> test17WhenASpaceshipsThrowsARedoAndLastCardAAccelerationThenSpac
 		equals: 4.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test18WhenASpaceshipsThrowsARedoAndLastCardACancellationThenSpaceshipsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier aSpeedCard2 aCardPlayer2 |
@@ -699,7 +700,7 @@ CroupierTest >> test18WhenASpaceshipsThrowsARedoAndLastCardACancellationThenSpac
 		equals: 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test19WhenASpaceshipThrowsRepeatCardAndLastCellEffectSpeedUpThenASpaceshipIsAffected [
 
 	| spaceships aBoard aBoardGame aCroupier|
@@ -733,7 +734,7 @@ CroupierTest >> test19WhenASpaceshipThrowsRepeatCardAndLastCellEffectSpeedUpThen
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test20WhenAspaceshipThrowsRepeatCardAndLastCellEffectAtomicBombThenAllSpaceshipsReturnToInitialPosition [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -767,7 +768,7 @@ CroupierTest >> test20WhenAspaceshipThrowsRepeatCardAndLastCellEffectAtomicBombT
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test21WhenASpaceshipThrowsRepeatCardAndLastCellEffectMoonWalkThenSomeSpaceshipsGoBackwards [
 
 | spaceships aBoard aBoardGame cellEffectsCollection aMoonWalkEffect aCroupier |
@@ -826,7 +827,7 @@ CroupierTest >> test21WhenASpaceshipThrowsRepeatCardAndLastCellEffectMoonWalkThe
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test22WhenASpaceshipThrowsAnAccelerationCardToAnotherSpaceshipThenCannotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -855,7 +856,7 @@ CroupierTest >> test22WhenASpaceshipThrowsAnAccelerationCardToAnotherSpaceshipTh
 		withMessage: 'You cannot choose a player for acceleration card.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test23WhenASpaceshipThrowsRepeatCardAndLastCellEffectWormHoleThenASpaceshipGoesBackwards [
 
 | spaceships aBoard aBoardGame cellEffectsCollection aCroupier |
@@ -906,7 +907,7 @@ CroupierTest >> test23WhenASpaceshipThrowsRepeatCardAndLastCellEffectWormHoleThe
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEffect [
 
 | spaceships aBoard aBoardGame cellEffectsCollection aCroupier |
@@ -958,7 +959,7 @@ CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEff
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test25WhenASpaceshipThrowsARepeatCardNotIndicatingSpaceshipAndLastCellEffectAMoonWalkThenAppliesToSpaceshipPlaying [
 
 | spaceships aBoard aBoardGame cellEffectsCollection aMoonWalkEffect aCroupier |
@@ -1018,7 +1019,7 @@ CroupierTest >> test25WhenASpaceshipThrowsARepeatCardNotIndicatingSpaceshipAndLa
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test26WhenASpaceshipThrowsSpeedCardNotChoosingAPlayerThenCanNotThrowCard [
 	| spaceships aBoard aBoardGame aCroupier |
 	spaceships := OrderedCollection new.
@@ -1042,7 +1043,7 @@ CroupierTest >> test26WhenASpaceshipThrowsSpeedCardNotChoosingAPlayerThenCanNotT
 	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky'.  ] raise: Error  withMessage: 'To play card, choose a player' .	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test27WhenASpaceshipThrowsSpeedCardChoosingASpaceshipCardThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1069,7 +1070,7 @@ CroupierTest >> test27WhenASpaceshipThrowsSpeedCardChoosingASpaceshipCardThenCan
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test28WhenASpaceshipThrowsOverloadCardChoosingASpaceshipCardThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1102,7 +1103,7 @@ CroupierTest >> test28WhenASpaceshipThrowsOverloadCardChoosingASpaceshipCardThen
 		withMessage: 'To play card, choose a player'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test29WhenASpaceshipThrowsOverloadCardNotChoosingAPlayerThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1135,7 +1136,7 @@ CroupierTest >> test29WhenASpaceshipThrowsOverloadCardNotChoosingAPlayerThenCanN
 		withMessage: 'To play card, choose a player'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test30WhenASpaceshipThrowsAccelerationCardChoosingASpaceshipCardThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1168,7 +1169,7 @@ CroupierTest >> test30WhenASpaceshipThrowsAccelerationCardChoosingASpaceshipCard
 		withMessage: 'You cannot choose a card for acceleration card.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test31WhenASpaceshipThrowsCancellationCardChoosingAPlayerThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame  aCroupier |
@@ -1198,7 +1199,7 @@ CroupierTest >> test31WhenASpaceshipThrowsCancellationCardChoosingAPlayerThenCan
 		withMessage: 'You have to choose a card.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test32WhenASpaceshipThrowsCancellationCardNotChoosingSpaceshipCardThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1225,7 +1226,7 @@ CroupierTest >> test32WhenASpaceshipThrowsCancellationCardNotChoosingSpaceshipCa
 		withMessage: 'You have to choose a card.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test33WhenASpaceshipThrowsRedoCardNotChoosingAPlayerForSpeedCardThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
@@ -1255,7 +1256,7 @@ CroupierTest >> test33WhenASpaceshipThrowsRedoCardNotChoosingAPlayerForSpeedCard
 		withMessage: 'To play card, choose a player'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CroupierTest >> test34WhenASpaceshipThrowsRepeatCardNotChoosingACardThenCanNotThrowCard [
 	| spaceships aBoard aBoardGame aCroupier |
 	spaceships := OrderedCollection new.

@@ -1,10 +1,11 @@
 Class {
-	#name : #CellGeneratorTest,
-	#superclass : #TestCase,
-	#category : #'IngSoft2-Tests'
+	#name : 'CellGeneratorTest',
+	#superclass : 'TestCase',
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 CellGeneratorTest >> test01WhenACellGeneratorGeneratesCellsThenABoardIsCreatedWithCells [
 
 	| aCellGenerator aBoard |

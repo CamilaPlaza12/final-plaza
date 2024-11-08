@@ -1,6 +1,6 @@
 Class {
-	#name : #CardGenerator,
-	#superclass : #Object,
+	#name : 'CardGenerator',
+	#superclass : 'Object',
 	#instVars : [
 		'amountOfCards',
 		'speeds',
@@ -11,31 +11,32 @@ Class {
 		'repeats',
 		'cards'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 CardGenerator class >> setWithCards: aNumber [ 
 	^(self new) initializeWithCards: aNumber.
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> accelerations [
 	^ accelerations
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> cancellations [
 	^ cancellations
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CardGenerator >> cards [
 
 	^ cards
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CardGenerator >> initializeDeck [
 	1 to: amountOfCards do: [ :index | 
 		| aNumber |
@@ -60,7 +61,7 @@ CardGenerator >> initializeDeck [
 			repeats := repeats + 1 ] ].
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CardGenerator >> initializeWithCards: aNumber [
 	cards:= OrderedCollection new.
 	amountOfCards := aNumber.
@@ -74,22 +75,22 @@ CardGenerator >> initializeWithCards: aNumber [
 	
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> overloads [
 	^ overloads
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> redos [
 	^ redos
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> repeats [
 	^ repeats
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 CardGenerator >> speeds [
 	^ speeds
 ]

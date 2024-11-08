@@ -1,6 +1,6 @@
 Class {
-	#name : #BoardGame,
-	#superclass : #Object,
+	#name : 'BoardGame',
+	#superclass : 'Object',
 	#instVars : [
 		'spaceships',
 		'turn',
@@ -16,10 +16,11 @@ Class {
 		'playingSpaceshipPosition',
 		'croupier'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BoardGame class >> playedBy: spaceships rolling: dice on: aBoard with: rounds managedBy: aCroupier [ 
 
 	self validateCanExistWith: spaceships andWith: rounds.
@@ -31,7 +32,7 @@ BoardGame class >> playedBy: spaceships rolling: dice on: aBoard with: rounds ma
 		  managedBy: aCroupier.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountOfRounds [
 
 	aSpaceshipCollection isEmpty ifTrue: [ 
@@ -45,14 +46,14 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 		Error signal: 'Cannot create board with repeated spaceships' ]
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> applyAtomicBombEffect [
 
 	spaceshipPositions do: [ :spaceship | 
 		self moves: spaceship to: (spaceship position cellNumber negated) + 1 ]
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> applyEffect [
 
 	| aCellEffect |
@@ -62,7 +63,7 @@ BoardGame >> applyEffect [
 	aCellEffect effect implementOn: self
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> applyHyperJumpEffect: parsecs [
 
 	self
@@ -70,7 +71,7 @@ BoardGame >> applyHyperJumpEffect: parsecs [
 		to: parsecs // board parsecsPerCell
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> applyMoonWalkEffect: cellsBackward [
 
 	(spaceshipPositions select: [ :spaceshipPosition | 
@@ -80,17 +81,17 @@ BoardGame >> applyMoonWalkEffect: cellsBackward [
 
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> applyMovingEffect: aNumber [ 
 	self moves: playingSpaceshipPosition to: aNumber.
 ]
 
-{ #category : #effects }
+{ #category : 'effects' }
 BoardGame >> dealACardEffect [
 	croupier dealACardTo: playingSpaceshipPosition spaceships.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [ 
 
 	board := aBoard.
@@ -106,7 +107,7 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	self spaceshipsInitialization.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> moves: aSpaceshipPosition to: amountOfCellsToMove [
 
 	| moveAmount aSpaceshipPositionNew cellNumberNew roundNew |
@@ -132,7 +133,7 @@ BoardGame >> moves: aSpaceshipPosition to: amountOfCellsToMove [
 		put: aSpaceshipPositionNew
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> newCellNumberPositionWith: moveAmount on: aRound [
 
 	| cellNumber amountOfRounds |
@@ -154,7 +155,7 @@ BoardGame >> newCellNumberPositionWith: moveAmount on: aRound [
 	^ cellNumber
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> newRoundPositionWhen: originalRound with: moveAmount [
 
 	| cellNumber round |
@@ -175,7 +176,7 @@ BoardGame >> newRoundPositionWhen: originalRound with: moveAmount [
 	^ round
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> playTurnFor: aSpaceship [
 
 	isOver
@@ -189,14 +190,14 @@ BoardGame >> playTurnFor: aSpaceship [
 		ifTrue: [ self validateKeepPlaying ]
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> positions [
 
 	^ spaceshipPositions collect: [ :spaceship | 
 		  spaceship position cellNumber ]
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> ranking [
 
 	| namesRanking |
@@ -210,7 +211,7 @@ BoardGame >> ranking [
 
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 
 	self moves: playingSpaceshipPosition to: aNumber.
@@ -218,7 +219,7 @@ BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 	self applyEffect
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> repeatCardTo: aSpaceship [
 
 	playingSpaceshipPosition := spaceshipPositions detect: [ 
@@ -229,14 +230,14 @@ BoardGame >> repeatCardTo: aSpaceship [
 	lastCellEffect implementOn: self
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> spaceshipPosition: aName [
 
 	^ (spaceshipPositions detect: [ :spaceshipPosition | 
 		   spaceshipPosition spaceships == aName ]) position
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BoardGame >> spaceshipsInitialization [
 
 	| size |
@@ -248,7 +249,7 @@ BoardGame >> spaceshipsInitialization [
 		size := size + 1 ]
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> throw: aCard from: aSpaceship [
 
 	| aCardPlayers |
@@ -258,7 +259,7 @@ BoardGame >> throw: aCard from: aSpaceship [
 		croupier playOnAll: aCardPlayers ]
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 	
 	croupier take: aCard from: aSpaceship on: self.
@@ -266,7 +267,7 @@ BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
 
 	| aCardPlayers |
@@ -279,7 +280,7 @@ BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
 		croupier play: aCardPlayers ]
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> throwDice [
 
 	| result |
@@ -288,26 +289,26 @@ BoardGame >> throwDice [
 	^ result
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> totalAmount [
 
 	^ self throwDice + (croupier permanentCardsOf: playingSpaceshipPosition spaceships).
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validateKeepPlaying [
 
 	Error signal: 'There is a winner, you cant keep moving forward'
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validatePermanentPlayFor: aSpaceship [
 
 	(spaceships at: turn) = aSpaceship ifFalse: [ 
 		Error signal: 'Its not your turn' ]
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 BoardGame >> validatePlayingSpaceshipPosition [
 
 	playingSpaceshipPosition := spaceshipPositions detect: [ 
@@ -316,7 +317,7 @@ BoardGame >> validatePlayingSpaceshipPosition [
 		                            == (spaceships at: turn) ]
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validateRedoCard [
 
 	(lastCardPlayed = '')ifTrue: [ 
@@ -324,7 +325,7 @@ BoardGame >> validateRedoCard [
 	playingCard := lastCardPlayed
 ]
 
-{ #category : #cards }
+{ #category : 'cards' }
 BoardGame >> validateRepeatOf: aCardPlayers [
 
 	aCardPlayers cards name = 'repeat'
@@ -334,21 +335,21 @@ BoardGame >> validateRepeatOf: aCardPlayers [
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validateSpaceshipExists: aSpaceship [
 
 	(spaceships includes: aSpaceship)
 		ifFalse: [ Error signal: 'That spaceship doesn´t exists' ].
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
 	(spaceships at: turn) = aSpaceship
 		ifFalse: [ Error signal: 'Its not your turn' ].
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 BoardGame >> validateWinner: aSpaceshipPosition [
 
 	(aSpaceshipPosition position round) > rounds
@@ -358,7 +359,7 @@ BoardGame >> validateWinner: aSpaceshipPosition [
 		ifFalse: [  ]
 ]
 
-{ #category : #'instance variable' }
+{ #category : 'instance variable' }
 BoardGame >> winner [
 
 	winner

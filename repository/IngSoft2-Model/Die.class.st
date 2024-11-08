@@ -1,39 +1,40 @@
 Class {
-	#name : #Die,
-	#superclass : #Object,
+	#name : 'Die',
+	#superclass : 'Object',
 	#instVars : [
 		'faces'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 Die class >> of: aNumberOfFaces [
 	self validateExistsWith: aNumberOfFaces. 
 	^(self new) initializeWith: aNumberOfFaces .
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 Die class >> validateExistsWith: aNumberOfFaces [
 
 	aNumberOfFaces > 2 ifFalse: [ 
 		Error signal: 'Cannot create die with 2 or less amount of faces' ]
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 Die >> faces [
 
 	^ faces
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Die >> initializeWith: aNumberOfFaces [
 
 	faces := aNumberOfFaces
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 Die >> throw [
 
-	^ faces atRandom
+	^ faces atRandom 
 ]

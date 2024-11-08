@@ -1,25 +1,26 @@
 Class {
-	#name : #PlayerCards,
-	#superclass : #Object,
+	#name : 'PlayerCards',
+	#superclass : 'Object',
 	#instVars : [
 		'spaceship',
 		'cards'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 PlayerCards class >> of: aSpaceship [ 
 	^(self new) of: aSpaceship.
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 PlayerCards >> cards [
 
 	^ cards
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 PlayerCards >> obtainCard: cardId [
 
 	| aCard |
@@ -29,14 +30,14 @@ PlayerCards >> obtainCard: cardId [
 	^ aCard
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PlayerCards >> of: aSpaceship [
 
 	spaceship := aSpaceship.
 	cards := OrderedCollection new
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 PlayerCards >> removeCard: cardId [
 
 	| aCard |
@@ -44,7 +45,7 @@ PlayerCards >> removeCard: cardId [
 	cards remove: aCard
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 PlayerCards >> spaceships [
 
 	^ spaceship

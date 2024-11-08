@@ -1,10 +1,11 @@
 Class {
-	#name : #ProbabilityTest,
-	#superclass : #TestCase,
-	#category : #'IngSoft2-Tests'
+	#name : 'ProbabilityTest',
+	#superclass : 'TestCase',
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test01When1000BoardsAreCreatedThenProbabilityGeneratorOfAtomicBombBetween1And3 [
 
 	| randomCellEffects sum |
@@ -18,7 +19,7 @@ ProbabilityTest >> test01When1000BoardsAreCreatedThenProbabilityGeneratorOfAtomi
 	self assert: (sum // 1000 between: 1 and: 3)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test02When1000BoardsAreCreatedThenProbabilityGeneratorOfHyperJumpBetween7And9 [
 
 	| randomCellEffects sum |
@@ -34,7 +35,7 @@ ProbabilityTest >> test02When1000BoardsAreCreatedThenProbabilityGeneratorOfHyper
 	self assert: ((sum // 1000) between: 7 and: 9)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test03When1000BoardsAreCreatedThenProbabilityGeneratorOfMoonWalkBetween9And11 [
 
 	| randomCellEffects sum |
@@ -48,7 +49,7 @@ ProbabilityTest >> test03When1000BoardsAreCreatedThenProbabilityGeneratorOfMoonW
 	self assert: ((sum // 1000) between: 9 and: 11)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test04When1000BoardsAreCreatedThenProbabilityGeneratorOfNoEffectBetween29And31 [
 
 	| randomCellEffects sum |
@@ -62,7 +63,7 @@ ProbabilityTest >> test04When1000BoardsAreCreatedThenProbabilityGeneratorOfNoEff
 	self assert: ((sum // 1000) between: 29 and: 31)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test05When1000BoardsAreCreatedThenProbabilityGeneratorOfSpeedUpBetween19And21 [
 
 	| randomCellEffects sum |
@@ -76,7 +77,7 @@ ProbabilityTest >> test05When1000BoardsAreCreatedThenProbabilityGeneratorOfSpeed
 	self assert: ((sum // 1000) between: 19 and: 21)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test06When1000BoardsAreCreatedThenProbabilityGeneratorOfWormHoleBetween19And21 [
 
 	| randomCellEffects sum |
@@ -91,7 +92,7 @@ ProbabilityTest >> test06When1000BoardsAreCreatedThenProbabilityGeneratorOfWormH
 	self assert: ((sum // 1000) between: 19 and: 21)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test07WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfSpeedsBetween15and17 [
 
 	| randomCards sum|
@@ -105,7 +106,7 @@ ProbabilityTest >> test07WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test08WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfOverloadsBetween15and17 [
 
 	| randomCards sum|
@@ -119,7 +120,7 @@ ProbabilityTest >> test08WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test09WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfAccelerationsBetween15and17 [
 
 	| randomCards sum|
@@ -133,7 +134,7 @@ ProbabilityTest >> test09WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test10WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfCancellationsBetween15and17 [
 
 	| randomCards sum|
@@ -147,7 +148,7 @@ ProbabilityTest >> test10WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test11WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfRedosBetween15and17 [
 
 	| randomCards sum|
@@ -161,7 +162,7 @@ ProbabilityTest >> test11WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test12WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfRepeatsBetween15and17 [
 
 	| randomCards sum|
@@ -175,7 +176,7 @@ ProbabilityTest >> test12WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabili
 	self assert: (sum // 1000 between: 15 and: 17)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ProbabilityTest >> test13When1000BoardsAreCreatedThenProbabilityGeneratorOfCardsBetween9And11 [
 
 	| randomCellEffects sum |

@@ -1,6 +1,6 @@
 Class {
-	#name : #CellGenerator,
-	#superclass : #Object,
+	#name : 'CellGenerator',
+	#superclass : 'Object',
 	#instVars : [
 		'noEffects',
 		'wormHoles',
@@ -12,39 +12,40 @@ Class {
 		'cards',
 		'cellEffects'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 CellGenerator class >> setWithCellEffects: aNumber [
 
 	^ self new initializeWithCellEffects: aNumber
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> atomicBombs [
 
 	^ atomicBombs
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> cards [
 	^cards
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CellGenerator >> cellsEffect [
 
 	^ cellEffects
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> hyperJumps [
 
 	^ hyperJumps
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CellGenerator >> initializeCells [
 
 	1 to: amountOfCells do: [ :index | 
@@ -73,7 +74,7 @@ CellGenerator >> initializeCells [
 			atomicBombs := atomicBombs + 1 ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CellGenerator >> initializeWithCellEffects: aNumber [
 	cellEffects := OrderedCollection new.
 	amountOfCells := aNumber.
@@ -87,25 +88,25 @@ CellGenerator >> initializeWithCellEffects: aNumber [
 	self initializeCells
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> moonWalks [
 
 	^ moonWalks
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> noEffects [
 
 	^ noEffects
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> speedUps [
 
 	^ speedUps
 ]
 
-{ #category : #'instance variables' }
+{ #category : 'instance variables' }
 CellGenerator >> wormHoles [
 
 	^ wormHoles

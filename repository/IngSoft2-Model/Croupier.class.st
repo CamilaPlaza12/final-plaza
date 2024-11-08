@@ -1,6 +1,6 @@
 Class {
-	#name : #Croupier,
-	#superclass : #Object,
+	#name : 'Croupier',
+	#superclass : 'Object',
 	#instVars : [
 		'deckOfCards',
 		'playersCards',
@@ -8,15 +8,16 @@ Class {
 		'permanentCardsPlayers',
 		'lastCardPlayed'
 	],
-	#category : #'IngSoft2-Model'
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Croupier class >> handling: aDeckOfCards [ 
 	^(self new) handling: aDeckOfCards.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> cancellationCardTo: aCard [
 
 	| aCardPlayers |
@@ -27,7 +28,7 @@ Croupier >> cancellationCardTo: aCard [
 	lastCardPlayed := CancellationCard new.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> dealACardTo: aSpaceship [
 		playersCards do: [ :playerCards | 
 		(playerCards spaceships = aSpaceship) ifTrue: [ 
@@ -35,7 +36,7 @@ Croupier >> dealACardTo: aSpaceship [
 			indexCards := indexCards \\ deckOfCards cards size + 1]].
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Croupier >> dealCardsWhenGameIsStartedTo: spaceships [
 	| size amountOfCards |
 	size := 0.
@@ -53,19 +54,19 @@ Croupier >> dealCardsWhenGameIsStartedTo: spaceships [
 	
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Croupier >> handling: aDeckOfCards [ 
 	deckOfCards := aDeckOfCards.
 	indexCards := 1.
 	permanentCardsPlayers:= OrderedCollection new.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> lastCardPlayed [
 	^lastCardPlayed .
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> permanentCardsOf: aSpaceship [
 
 	| anAmount |
@@ -76,27 +77,27 @@ Croupier >> permanentCardsOf: aSpaceship [
 	^ anAmount
 ]
 
-{ #category : #play }
+{ #category : 'play' }
 Croupier >> play: aCardPlayers [ 
 	aCardPlayers cards playOn: self to: aCardPlayers.
 ]
 
-{ #category : #play }
+{ #category : 'play' }
 Croupier >> play: aCard forSelected: choosenCard [ 
 	aCard playOn: self toSelected: choosenCard
 ]
 
-{ #category : #play }
+{ #category : 'play' }
 Croupier >> play: aCardPlayers on: aBoardGame [ 
 	aCardPlayers cards playOn: aBoardGame to: aCardPlayers.
 ]
 
-{ #category : #play }
+{ #category : 'play' }
 Croupier >> playOnAll: aCardPlayers [ 
 	aCardPlayers cards playOn: self toAll: aCardPlayers.
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> playerCardOf: aSpaceship [
 
 	| aPlayerCards |
@@ -107,14 +108,14 @@ Croupier >> playerCardOf: aSpaceship [
 	^ aPlayerCards
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 Croupier >> recordPermanent: aCardPlayers [
 
 	permanentCardsPlayers add: aCardPlayers.
 	lastCardPlayed := aCardPlayers cards
 ]
 
-{ #category : #play }
+{ #category : 'play' }
 Croupier >> take: aCard from: aSpaceship on: aBoardGame [
 	
 	| aPlayerCards |
