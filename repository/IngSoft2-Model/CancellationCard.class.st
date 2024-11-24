@@ -33,8 +33,3 @@ CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
 	Error signal: 'You have to choose a card.'
 ]
-
-{ #category : 'instance variable' }
-CancellationCard >> name [
-	^'cancellation'.
-]

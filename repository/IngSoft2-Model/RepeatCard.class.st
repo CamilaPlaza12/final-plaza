@@ -34,9 +34,3 @@ RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	aBoardGame repeatCardTo: anotherSpaceship.
 ]
-
-{ #category : 'instance variable' }
-RepeatCard >> name [
-
-	^ 'repeat'
-]

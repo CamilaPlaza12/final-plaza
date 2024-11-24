@@ -304,13 +304,6 @@ BoardGame >> validateKeepPlaying [
 	Error signal: 'There is a winner, you cant keep moving forward'
 ]
 
-{ #category : 'validation' }
-BoardGame >> validatePermanentPlayFor: aSpaceship [
-
-	(spaceships at: turn) = aSpaceship ifFalse: [ 
-		Error signal: 'Its not your turn' ]
-]
-
 { #category : 'action' }
 BoardGame >> validatePlayingSpaceshipPosition [
 

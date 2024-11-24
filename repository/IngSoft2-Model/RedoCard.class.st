@@ -41,9 +41,3 @@ RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship.
 	
 ]
-
-{ #category : 'instance variables' }
-RedoCard >> name [
-
-	^ 'redo'
-]
