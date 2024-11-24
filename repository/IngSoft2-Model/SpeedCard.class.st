@@ -8,12 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-SpeedCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validatePermanentPlayFor: aSpaceship
-]
-
 { #category : 'instance variable' }
 SpeedCard >> id [
 
@@ -32,26 +26,32 @@ SpeedCard >> implementOn: aBoardGame [
 	^ 1
 ]
 
-{ #category : 'instance variable' }
-SpeedCard >> name [
-
-	^ 'speed'
-]
-
-{ #category : 'action' }
-SpeedCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
-]
-
 { #category : 'validation' }
-SpeedCard >> playOn: aCroupier toAll: aCardPlayers [
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship [ 
 
 	Error signal: 'To play card, choose a player'
 ]
 
 { #category : 'action' }
-SpeedCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	
 	Error signal: 'To play card, choose a player'.
+]
+
+{ #category : 'testing' }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+	|aCardPlayers|
+	aBoardGame validateSpaceshipExists: anotherSpaceship.
+	aBoardGame validates: aSpaceship canPlay: self.
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: (OrderedCollection with: anotherSpaceship).
+	aBoardGame recordPermanent: aCardPlayers.
+	
+]
+
+{ #category : 'instance variable' }
+SpeedCard >> name [
+
+	^ 'speed'
 ]

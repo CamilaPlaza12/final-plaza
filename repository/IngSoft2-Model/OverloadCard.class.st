@@ -8,12 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-OverloadCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validatePermanentPlayFor: aSpaceship
-]
-
 { #category : 'instance variables' }
 OverloadCard >> id [
 
@@ -32,26 +26,31 @@ OverloadCard >> implementOn: aBoardGame [
 	^ -2
 ]
 
-{ #category : 'instance variables' }
-OverloadCard >> name [
-
-	^'overload'.
-]
-
 { #category : 'action' }
-OverloadCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
-]
-
-{ #category : 'action' }
-OverloadCard >> playOn: aCroupier toAll: aCardPlayers [
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship [ 
 
 	Error signal: 'To play card, choose a player'
 ]
 
 { #category : 'action' }
-OverloadCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	
-	Error signal: 'To play card, choose a player' .
+	Error signal: 'To play card, choose a player'.
+]
+
+{ #category : 'testing' }
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+	|aCardPlayers|
+	aBoardGame validateSpaceshipExists: anotherSpaceship.
+	aBoardGame validates: aSpaceship canPlay: self.
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: (OrderedCollection with: anotherSpaceship).
+	aBoardGame recordPermanent: aCardPlayers.
+]
+
+{ #category : 'instance variables' }
+OverloadCard >> name [
+
+	^'overload'.
 ]

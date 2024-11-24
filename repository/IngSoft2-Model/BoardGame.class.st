@@ -46,6 +46,11 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 		Error signal: 'Cannot create board with repeated spaceships' ]
 ]
 
+{ #category : 'cards' }
+BoardGame >> appliesCancellationCardTo: aCard [ 
+	croupier cancellationCardTo: aCard.
+]
+
 { #category : 'effects' }
 BoardGame >> applyAtomicBombEffect [
 
@@ -91,6 +96,11 @@ BoardGame >> dealACardEffect [
 	croupier dealACardTo: playingSpaceshipPosition spaceships.
 ]
 
+{ #category : 'cards' }
+BoardGame >> dealLastPlayedCardTo: aSpaceship [ 
+	croupier dealLastPlayedCardTo: aSpaceship
+]
+
 { #category : 'instance creation' }
 BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [ 
 
@@ -105,6 +115,11 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	croupier := aCroupier.
 	croupier dealCardsWhenGameIsStartedTo: spaceships.
 	self spaceshipsInitialization.
+]
+
+{ #category : 'accessing' }
+BoardGame >> lastCardPlayed [
+	^ (croupier lastCardPlayed)
 ]
 
 { #category : 'action' }
@@ -181,12 +196,11 @@ BoardGame >> playTurnFor: aSpaceship [
 
 	isOver
 		ifFalse: [ 
-			self validatePlayingSpaceshipPosition.
 			self validateSpaceshipTurnFor: aSpaceship.
+			self validatePlayingSpaceshipPosition.
 			self relocatesSpaceshipPositionTo: self totalAmount.
 			self validateWinner: playingSpaceshipPosition.
-
-			turn := turn \\ spaceships size + 1 ]
+			self turn.]
 		ifTrue: [ self validateKeepPlaying ]
 ]
 
@@ -209,6 +223,11 @@ BoardGame >> ranking [
 	^ namesRanking collect: [ :spaceshipPosition | 
 		  spaceshipPosition spaceships ]
 
+]
+
+{ #category : 'action' }
+BoardGame >> recordPermanent: aCardPlayers [ 
+	croupier recordPermanent: aCardPlayers.
 ]
 
 { #category : 'action' }
@@ -237,6 +256,11 @@ BoardGame >> spaceshipPosition: aName [
 		   spaceshipPosition spaceships == aName ]) position
 ]
 
+{ #category : 'accessing' }
+BoardGame >> spaceships [
+	^ spaceships
+]
+
 { #category : 'initialization' }
 BoardGame >> spaceshipsInitialization [
 
@@ -249,35 +273,9 @@ BoardGame >> spaceshipsInitialization [
 		size := size + 1 ]
 ]
 
-{ #category : 'cards' }
-BoardGame >> throw: aCard from: aSpaceship [
-
-	| aCardPlayers |
-	croupier take: aCard from: aSpaceship on: self.
-	aCardPlayers := CardPlayers of: aCard with: spaceships.
-	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier playOnAll: aCardPlayers ]
-]
-
-{ #category : 'cards' }
-BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
-	
-	croupier take: aCard from: aSpaceship on: self.
-	croupier play: aCard forSelected: anotherCard
-
-]
-
-{ #category : 'cards' }
-BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
-
-	| aCardPlayers |
-	self validateSpaceshipExists: anotherSpaceship.
-	croupier take: aCard from: aSpaceship on: self.
-	aCardPlayers := CardPlayers
-		                of: aCard
-		                with: (OrderedCollection with: anotherSpaceship).
-	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier play: aCardPlayers ]
+{ #category : 'action' }
+BoardGame >> takes: aCard from: aSpaceship [ 
+	croupier takes: aCard from: aSpaceship.
 ]
 
 { #category : 'action' }
@@ -293,6 +291,11 @@ BoardGame >> throwDice [
 BoardGame >> totalAmount [
 
 	^ self throwDice + (croupier permanentCardsOf: playingSpaceshipPosition spaceships).
+]
+
+{ #category : 'accessing' }
+BoardGame >> turn [
+	turn := turn \\ spaceships size + 1 
 ]
 
 { #category : 'validation' }
@@ -318,24 +321,6 @@ BoardGame >> validatePlayingSpaceshipPosition [
 ]
 
 { #category : 'validation' }
-BoardGame >> validateRedoCard [
-
-	(lastCardPlayed = '')ifTrue: [ 
-		Error signal: 'A card hasn´t been played yet' ].
-	playingCard := lastCardPlayed
-]
-
-{ #category : 'cards' }
-BoardGame >> validateRepeatOf: aCardPlayers [
-
-	aCardPlayers cards name = 'repeat'
-		ifTrue: [ 
-			croupier play: aCardPlayers on: self.
-			^ true ]
-		ifFalse: [ ^ false ]
-]
-
-{ #category : 'validation' }
 BoardGame >> validateSpaceshipExists: aSpaceship [
 
 	(spaceships includes: aSpaceship)
@@ -357,6 +342,12 @@ BoardGame >> validateWinner: aSpaceshipPosition [
 			isOver := true.
 			winner := aSpaceshipPosition spaceships ]
 		ifFalse: [  ]
+]
+
+{ #category : 'validation' }
+BoardGame >> validates: aSpaceship canPlay: aCard [ 
+	self validateSpaceshipTurnFor: aSpaceship.
+	self takes: aCard from: aSpaceship.
 ]
 
 { #category : 'instance variable' }

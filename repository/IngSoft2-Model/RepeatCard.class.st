@@ -8,11 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-RepeatCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-
-]
-
 { #category : 'instance variable' }
 RepeatCard >> id [
 
@@ -25,19 +20,23 @@ RepeatCard >> id: number [
 	cardId := number
 ]
 
+{ #category : 'testing' }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	aBoardGame repeatCardTo: ((aBoardGame spaceships)  at: 1) 
+]
+
+{ #category : 'action' }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
+]
+
+{ #category : 'testing' }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	aBoardGame repeatCardTo: anotherSpaceship.
+]
+
 { #category : 'instance variable' }
 RepeatCard >> name [
 
 	^ 'repeat'
-]
-
-{ #category : 'action' }
-RepeatCard >> playOn: aBoardGame to: aCardPlayers [
-
-	aBoardGame repeatCardTo: (aCardPlayers spaceships at: 1)
-]
-
-{ #category : 'action' }
-RepeatCard >> playOn: aCroupier toSelected: aSpeedCard [ 
-	Error signal: 'To play card, choose a player'.
 ]

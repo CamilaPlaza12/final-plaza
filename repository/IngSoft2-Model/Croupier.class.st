@@ -54,6 +54,13 @@ Croupier >> dealCardsWhenGameIsStartedTo: spaceships [
 	
 ]
 
+{ #category : 'cards' }
+Croupier >> dealLastPlayedCardTo: aSpaceship [ 
+	playersCards do: [ :playerCards | 
+		(playerCards spaceships = aSpaceship) ifTrue: [ 
+			playerCards cards add: lastCardPlayed .]].
+]
+
 { #category : 'instance creation' }
 Croupier >> handling: aDeckOfCards [ 
 	deckOfCards := aDeckOfCards.
@@ -77,26 +84,6 @@ Croupier >> permanentCardsOf: aSpaceship [
 	^ anAmount
 ]
 
-{ #category : 'play' }
-Croupier >> play: aCardPlayers [ 
-	aCardPlayers cards playOn: self to: aCardPlayers.
-]
-
-{ #category : 'play' }
-Croupier >> play: aCard forSelected: choosenCard [ 
-	aCard playOn: self toSelected: choosenCard
-]
-
-{ #category : 'play' }
-Croupier >> play: aCardPlayers on: aBoardGame [ 
-	aCardPlayers cards playOn: aBoardGame to: aCardPlayers.
-]
-
-{ #category : 'play' }
-Croupier >> playOnAll: aCardPlayers [ 
-	aCardPlayers cards playOn: self toAll: aCardPlayers.
-]
-
 { #category : 'action' }
 Croupier >> playerCardOf: aSpaceship [
 
@@ -115,15 +102,9 @@ Croupier >> recordPermanent: aCardPlayers [
 	lastCardPlayed := aCardPlayers cards
 ]
 
-{ #category : 'play' }
-Croupier >> take: aCard from: aSpaceship on: aBoardGame [
-	
+{ #category : 'action' }
+Croupier >> takes: aCard from: aSpaceship [ 
 	| aPlayerCards |
-	"Verifico que pueda jugar en su turno (si es permanente)"
-	aCard canBePlayedIn: aBoardGame for: aSpaceship.
-	"Devuelvo el playerCards que coincide con esa spaceship"
 	aPlayerCards:= self playerCardOf: aSpaceship.
-	"Remover la carta de esa spaceship"
 	aPlayerCards removeCard: aCard id.
-	
 ]

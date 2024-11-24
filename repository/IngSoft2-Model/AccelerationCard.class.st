@@ -8,12 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-AccelerationCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validatePermanentPlayFor: aSpaceship
-]
-
 { #category : 'instance variable' }
 AccelerationCard >> id [
 	^cardId 
@@ -29,23 +23,28 @@ AccelerationCard >> implementOn: aBoardGame [
 	^1
 ]
 
-{ #category : 'instance variable' }
-AccelerationCard >> name [
-	'acceleration'.
+{ #category : 'testing' }
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	|aCardPlayers|
+	aBoardGame validates: aSpaceship canPlay: self.
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: aBoardGame spaceships.
+	aBoardGame recordPermanent: aCardPlayers.
 ]
 
 { #category : 'action' }
-AccelerationCard >> playOn: aCroupier to: aCardPlayers [ 
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	
+	Error signal: 'You cannot choose a card for acceleration card.'
+]
+
+{ #category : 'action' }
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'You cannot choose a player for acceleration card.'
 ]
 
-{ #category : 'action' }
-AccelerationCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	aCroupier recordPermanent: aCardPlayers
-]
-
-{ #category : 'action' }
-AccelerationCard >> playOn: aBoardGame toSelected: aCard [ 
-	
-	Error signal: 'You cannot choose a card for acceleration card.'
+{ #category : 'instance variable' }
+AccelerationCard >> name [
+	'acceleration'.
 ]

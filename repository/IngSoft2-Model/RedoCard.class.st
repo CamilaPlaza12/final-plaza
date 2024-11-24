@@ -8,12 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-RedoCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-	
-	aBoardGame validateRedoCard
-]
-
 { #category : 'instance variables' }
 RedoCard >> id [
 
@@ -26,36 +20,30 @@ RedoCard >> id: number [
 	cardId := number
 ]
 
+{ #category : 'testing' }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	aBoardGame takes: self from: aSpaceship.
+	aBoardGame dealLastPlayedCardTo: aSpaceship.
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship.
+]
+
+{ #category : 'testing' }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	aBoardGame takes: self from: aSpaceship.
+	aBoardGame dealLastPlayedCardTo: aSpaceship.
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship choosing: aCard.
+]
+
+{ #category : 'testing' }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+	aBoardGame takes: self from: aSpaceship.
+	aBoardGame dealLastPlayedCardTo: aSpaceship.
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship.
+	
+]
+
 { #category : 'instance variables' }
 RedoCard >> name [
 
 	^ 'redo'
-]
-
-{ #category : 'action' }
-RedoCard >> playOn: aCroupier to: aCardPlayers [
-
-	| lastCardPlayers |
-	lastCardPlayers := CardPlayers
-		                   of: aCroupier lastCardPlayed
-		                   with: aCardPlayers spaceships.
-
-	aCroupier play: lastCardPlayers
-]
-
-{ #category : 'action' }
-RedoCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	| lastCardPlayers |
-	lastCardPlayers := CardPlayers
-		                   of: aCroupier lastCardPlayed
-		                   with: aCardPlayers spaceships.
-
-	aCroupier playOnAll: lastCardPlayers
-]
-
-{ #category : 'action' }
-RedoCard >> playOn: aCroupier toSelected: card [
-
-	aCroupier play: aCroupier lastCardPlayed forSelected: card
 ]

@@ -8,11 +8,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'action' }
-CancellationCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-	
-]
-
 { #category : 'instance variable' }
 CancellationCard >> id [
 	^cardId 
@@ -23,23 +18,23 @@ CancellationCard >> id: number [
 	cardId:= number.
 ]
 
+{ #category : 'action' }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	Error signal: 'To play card choose a card'
+]
+
+{ #category : 'testing' }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	aBoardGame takes: self from: aSpaceship.
+	aBoardGame appliesCancellationCardTo: aCard.
+]
+
+{ #category : 'action' }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+	Error signal: 'You have to choose a card.'
+]
+
 { #category : 'instance variable' }
 CancellationCard >> name [
 	^'cancellation'.
-]
-
-{ #category : 'action' }
-CancellationCard >> playOn: aCroupier to: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
-]
-
-{ #category : 'action' }
-CancellationCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
-]
-
-{ #category : 'action' }
-CancellationCard >> playOn: aCroupier toSelected: card [ 
-	
-	aCroupier cancellationCardTo: card
 ]

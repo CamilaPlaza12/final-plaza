@@ -70,7 +70,7 @@ CroupierTest >> test01WhenASpaceshipPlaysASpeedCardThenStaysOnTheGame [
 		              with: 2 managedBy: aCroupier.
 
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
 	
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -105,9 +105,9 @@ CroupierTest >> test02WhenTwoSpeedCardsAffectASpaceshipThenSpaceshipMovesAffecte
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier.
-
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
+	
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -143,11 +143,11 @@ CroupierTest >> test03WhenSpaceshipTriesToThrowSpeedCardThenCannotThrowIt [
 		              on: aBoard
 		              with: 2 managedBy: aCroupier.
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
 
 	self
-		should: [ aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami' ]
+		should: [ aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.  ]
 		raise: Error
 		withMessage: 'You do not have that card'
 ]
@@ -171,7 +171,8 @@ CroupierTest >> test04WhenASpaceshipPlaysOverloadCardThenAffectedSpaceshipIsMove
 		              on: aBoard
 		              with: 2 managedBy: aCroupier.
 		
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
 
@@ -202,7 +203,7 @@ CroupierTest >> test05WhenSpaceshipPlaysAccelerationCardThenAllSpaceshipIncremen
 		              with: 2
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anAccelerationCard from: 'Vicky'.
+	anAccelerationCard isPlayedOn: aBoardGame  from:  'Vicky'.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -240,7 +241,7 @@ CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		              managedBy: aCroupier.
 
 	self
-		should: [ aBoardGame throw: aSpeedCard from: 'Cami' to: 'Cami' ]
+		should: [aSpeedCard isPlayedOn: aBoardGame from: 'Cami' to: 'Cami'.]
 		raise: Error
 		withMessage: 'Its not your turn'
 ]
@@ -269,10 +270,10 @@ CroupierTest >> test07WhenSpaceshipPlaysDifferentPermanentCardsThenSpaceshipsMov
 		              with: 3
 		              managedBy: aCroupier.
 	
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame throw: anAccelerationCard from: 'Cami'.
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Cami'.
 	aBoardGame playTurnFor: 'Cami'.
 
 	self
@@ -312,7 +313,7 @@ CroupierTest >> test08WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 
 	self
 		should: [ 
-			aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Delfina' ]
+			aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Delfina'. ]
 		raise: Error
 		withMessage: 'That spaceship doesn´t exists'
 ]
@@ -341,13 +342,13 @@ CroupierTest >> test09WhenASpaceshipPlaysACancellationCardThenAffectedSpaceshipM
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame  from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
 
-	aBoardGame throw: anAccelerationCard from: 'Cami'.
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Cami'.
 	aBoardGame playTurnFor: 'Cami'.
 
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: aSpeedCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Cami' choosing: aSpeedCard.
 
 	aBoardGame playTurnFor: 'Vicky'.
 
@@ -382,13 +383,13 @@ CroupierTest >> test10WhenASpaceshipCancelsAccelerationCardThenAllSpaceshipsAreA
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
 
-	aBoardGame throw: anAccelerationCard from: 'Cami'.
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Cami'.
 	aBoardGame playTurnFor: 'Cami'.
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: anAccelerationCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Cami' choosing: anAccelerationCard.
 	aBoardGame playTurnFor: 'Vicky'.
 
 	self
@@ -424,7 +425,7 @@ CroupierTest >> test11WhenASpaceshipLandsOnACardEffectCellThenAnotherCardIsDeale
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
 
-	aBoardGame throw: anAccelerationCard from: 'Vicky'. 
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 1.
@@ -456,7 +457,7 @@ CroupierTest >> test12WhenASpaceshipPlaysACancellationCardButThereAreNotPermanen
 
 	self
 		should: [ 
-		aBoardGame throw: aCancellationCard from: 'Vicky' choosing: 2 ]
+		aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard.]
 		raise: Error
 		withMessage: 'That card does not exist'
 ]
@@ -486,15 +487,15 @@ CroupierTest >> test13WhenASpaceshipPlaysCancellationCardThenCardDoesNotExists [
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame throw: anAccelerationCard from: 'Cami'.
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Cami'.
 
 	self
 		should: [ 
-		aBoardGame throw: aCancellationCard from: 'Cami' choosing: aCancellationCard ]
+		aCancellationCard isPlayedOn: aBoardGame from: 'Cami' choosing: aCancellationCard.]
 		raise: Error
 		withMessage: 'That card does not exist'
 ]
@@ -523,8 +524,8 @@ CroupierTest >> test14WhenASpaceshipsThrowsARedoAndLastCardASpeedThenSpaceshipsA
 		              managedBy: aCroupier.
 
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aRedoCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -561,10 +562,8 @@ CroupierTest >> test15WhenASpaceshipsThrowsARedoAndLastCardAOverloadThenSpaceshi
 		              with: 3
 		              managedBy: aCroupier.
 
-
-
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aRedoCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -598,12 +597,11 @@ CroupierTest >> test16WhenASpaceshipsThrowsTwoRedoAndLastCardASpeedThenSpaceship
 		              with: 3
 		              managedBy: aCroupier.
 
-
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
-	aBoardGame throw: aRedoCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
-
-	aBoardGame throw: aRedoCard from: 'Cami' to: 'Cami'.
+	
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami' to: 'Cami'.
 	aBoardGame playTurnFor: 'Cami'.
 
 	self
@@ -639,8 +637,8 @@ CroupierTest >> test17WhenASpaceshipsThrowsARedoAndLastCardAAccelerationThenSpac
 
 
 
-	aBoardGame throw: anAccelerationCard from: 'Vicky'.
-	aBoardGame throw: aRedoCard from: 'Vicky'.
+	anAccelerationCard isPlayedOn: aBoardGame from:  'Vicky'.
+	aRedoCard isPlayedOn: aBoardGame from:  'Vicky'.
 
 	aBoardGame playTurnFor: 'Vicky'.
 
@@ -682,13 +680,13 @@ CroupierTest >> test18WhenASpaceshipsThrowsARedoAndLastCardACancellationThenSpac
 		              managedBy: aCroupier.
 
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
-
-	aBoardGame throw: aSpeedCard2 from: 'Cami' to: 'Vicky'.
-	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aSpeedCard.
-
-	aBoardGame throw: aRedoCard from: 'Cami' choosing: aSpeedCard2.
+	
+	aSpeedCard2 isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard.
+	
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami' choosing: aSpeedCard2.
 
 	aBoardGame playTurnFor: 'Cami'.
 
@@ -725,7 +723,7 @@ CroupierTest >> test19WhenASpaceshipThrowsRepeatCardAndLastCellEffectSpeedUpThen
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 4.
 	
-	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Delfi'.
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Delfi'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 5.
@@ -759,7 +757,7 @@ CroupierTest >> test20WhenAspaceshipThrowsRepeatCardAndLastCellEffectAtomicBombT
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 8.
 	aBoardGame playTurnFor: 'Cami'.
-	aBoardGame throw: aRepeatCard from: 'Delfi'.
+	aRepeatCard isPlayedOn: aBoardGame from:  'Delfi'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 1.
@@ -816,7 +814,7 @@ CroupierTest >> test21WhenASpaceshipThrowsRepeatCardAndLastCellEffectMoonWalkThe
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 3.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
 	
-	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Vicky'.
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Vicky'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
@@ -851,7 +849,7 @@ CroupierTest >> test22WhenASpaceshipThrowsAnAccelerationCardToAnotherSpaceshipTh
 	aBoardGame playTurnFor: 'Vicky'.
 	self
 		should: [ 
-		aBoardGame throw: anAccelerationCard from: 'Cami' to: 'Cami' ]
+		anAccelerationCard isPlayedOn: aBoardGame from: 'Cami' to: 'Cami'. ]
 		raise: Error
 		withMessage: 'You cannot choose a player for acceleration card.'
 ]
@@ -898,7 +896,7 @@ CroupierTest >> test23WhenASpaceshipThrowsRepeatCardAndLastCellEffectWormHoleThe
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
 	
-	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Vicky'.
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Vicky'.
 
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 6.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
@@ -941,7 +939,9 @@ CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEff
 		              (OrderedCollection with: (LoadedDie of: #( 9 5 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier.
-	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Vicky'.
+
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Vicky'.
+	
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 10.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
@@ -950,7 +950,7 @@ CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEff
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
 	
-	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Vicky'.
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Vicky'.
 
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 6.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
@@ -1004,7 +1004,7 @@ CroupierTest >> test25WhenASpaceshipThrowsARepeatCardNotIndicatingSpaceshipAndLa
 	
 	aBoardGame playTurnFor: 'Delfi'.
 	
-	aBoardGame throw: aRepeatCard from: 'Delfi'. 
+	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
@@ -1038,9 +1038,9 @@ CroupierTest >> test26WhenASpaceshipThrowsSpeedCardNotChoosingAPlayerThenCanNotT
 		              with: 3
 		              managedBy: aCroupier.
 		
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	 
-	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky'.  ] raise: Error  withMessage: 'To play card, choose a player' .	
+	self should: [ aSpeedCard isPlayedOn: aBoardGame from: 'Vicky'. ] raise: Error  withMessage: 'To play card, choose a player' .	
 ]
 
 { #category : 'tests' }
@@ -1064,9 +1064,9 @@ CroupierTest >> test27WhenASpaceshipThrowsSpeedCardChoosingASpaceshipCardThenCan
 		              with: 3
 		              managedBy: aCroupier.
 		
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
-	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' choosing: 1.  ] raise: Error  withMessage: 'To play card, choose a player' .
+	self should: [ 	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' choosing: anOverloadCard.  ] raise: Error  withMessage: 'To play card, choose a player' .
 	
 ]
 
@@ -1091,14 +1091,10 @@ CroupierTest >> test28WhenASpaceshipThrowsOverloadCardChoosingASpaceshipCardThen
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
 	self
-		should: [ 
-			aBoardGame
-				throw: anOverloadCard
-				from: 'Vicky'
-				choosing: 1 ]
+		should: [ anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard.]
 		raise: Error
 		withMessage: 'To play card, choose a player'
 ]
@@ -1125,13 +1121,10 @@ CroupierTest >> test29WhenASpaceshipThrowsOverloadCardNotChoosingAPlayerThenCanN
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Vicky'.
+	anOverloadCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 		
 	self
-		should: [ 
-			aBoardGame
-				throw: anOverloadCard
-				from: 'Vicky'.]
+		should: [ anOverloadCard isPlayedOn: aBoardGame from: 'Vicky'.]
 		raise: Error
 		withMessage: 'To play card, choose a player'
 ]
@@ -1158,13 +1151,10 @@ CroupierTest >> test30WhenASpaceshipThrowsAccelerationCardChoosingASpaceshipCard
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: anAccelerationCard  from: 'Vicky'.
+	anAccelerationCard isPlayedOn: aBoardGame from: 'Vicky'.
 
 	self
-		should: [ 
-			aBoardGame
-				throw: anAccelerationCard 
-				from: 'Vicky' choosing: anAccelerationCard.]
+		should: [ anAccelerationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: anAccelerationCard.]
 		raise: Error
 		withMessage: 'You cannot choose a card for acceleration card.'
 ]
@@ -1191,12 +1181,12 @@ CroupierTest >> test31WhenASpaceshipThrowsCancellationCardChoosingAPlayerThenCan
 		              with: 3
 		              managedBy: aCroupier.
 
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 
 	self
-		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' ]
+		should: [ aCancellationCard isPlayedOn: aBoardGame from: 'Vicky'. ]
 		raise: Error
-		withMessage: 'You have to choose a card.'
+		withMessage: 'To play card choose a card'
 ]
 
 { #category : 'tests' }
@@ -1220,8 +1210,7 @@ CroupierTest >> test32WhenASpaceshipThrowsCancellationCardNotChoosingSpaceshipCa
 		              with: 3
 		              managedBy: aCroupier.
 	self
-		should: [ 
-		aBoardGame throw: aCancellationCard from: 'Vicky' to: 'Vicky' ]
+		should: [ aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.]
 		raise: Error
 		withMessage: 'You have to choose a card.'
 ]
@@ -1247,11 +1236,11 @@ CroupierTest >> test33WhenASpaceshipThrowsRedoCardNotChoosingAPlayerForSpeedCard
 		              on: aBoard
 		              with: 3
 		              managedBy: aCroupier.
-
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
-
+	
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
+	
 	self
-		should: [ aBoardGame throw: aRedoCard from: 'Vicky' ]
+		should: [ aRedoCard isPlayedOn: aBoardGame from: 'Vicky'. ]
 		raise: Error
 		withMessage: 'To play card, choose a player'
 ]
@@ -1275,7 +1264,9 @@ CroupierTest >> test34WhenASpaceshipThrowsRepeatCardNotChoosingACardThenCanNotTh
 		              with: 3
 		              managedBy: aCroupier.
 		
-	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.	
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
 	 
-	self should: [ aBoardGame throw: aRepeatCard from: 'Vicky'choosing: aSpeedCard.  ] raise: Error  withMessage: 'To play card, choose a player' .	
+	self should: [ aRepeatCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard. ] 
+	raise: Error  
+	withMessage: 'To play card choose a player' .	
 ]
