@@ -14,7 +14,8 @@ Class {
 		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
-		'croupier'
+		'croupier',
+		'spaceshipInJail'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -43,7 +44,7 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 
 
 	aSpaceshipCollection asSet size < aSpaceshipCollection size ifTrue: [ 
-		Error signal: 'Cannot create board with repeated spaceships' ]
+		Error signal: 'Cannot create board with repeated spaceships' ].
 ]
 
 { #category : 'cards' }
@@ -76,6 +77,12 @@ BoardGame >> applyHyperJumpEffect: parsecs [
 		to: parsecs // board parsecsPerCell
 ]
 
+{ #category : 'jail' }
+BoardGame >> applyJailEffect [
+
+	playingSpaceshipPosition inJail capture.
+]
+
 { #category : 'effects' }
 BoardGame >> applyMoonWalkEffect: cellsBackward [
 
@@ -93,7 +100,8 @@ BoardGame >> applyMovingEffect: aNumber [
 
 { #category : 'effects' }
 BoardGame >> dealACardEffect [
-	croupier dealACardTo: playingSpaceshipPosition spaceships.
+
+	croupier dealACardTo: playingSpaceshipPosition spaceships
 ]
 
 { #category : 'cards' }
@@ -198,9 +206,14 @@ BoardGame >> playTurnFor: aSpaceship [
 		ifFalse: [ 
 			self validateSpaceshipTurnFor: aSpaceship.
 			self validatePlayingSpaceshipPosition.
-			self relocatesSpaceshipPositionTo: self totalAmount.
-			self validateWinner: playingSpaceshipPosition.
-			self turn.]
+			self validatesSpaceshipInJail.
+			spaceshipInJail
+				ifFalse: [ 
+					self relocatesSpaceshipPositionTo: self totalAmount.
+					self validateWinner: playingSpaceshipPosition.
+				].
+			self turn.
+		]
 		ifTrue: [ self validateKeepPlaying ]
 ]
 
@@ -275,6 +288,7 @@ BoardGame >> spaceshipsInitialization [
 
 { #category : 'action' }
 BoardGame >> takes: aCard from: aSpaceship [ 
+
 	croupier takes: aCard from: aSpaceship.
 ]
 
@@ -290,7 +304,8 @@ BoardGame >> throwDice [
 { #category : 'cards' }
 BoardGame >> totalAmount [
 
-	^ self throwDice + (croupier permanentCardsOf: playingSpaceshipPosition spaceships).
+	^ self throwDice
+	  + (croupier permanentCardsOf: playingSpaceshipPosition spaceships)
 ]
 
 { #category : 'accessing' }
@@ -341,6 +356,11 @@ BoardGame >> validateWinner: aSpaceshipPosition [
 BoardGame >> validates: aSpaceship canPlay: aCard [ 
 	self validateSpaceshipTurnFor: aSpaceship.
 	self takes: aCard from: aSpaceship.
+]
+
+{ #category : 'jail' }
+BoardGame >> validatesSpaceshipInJail [
+	spaceshipInJail := playingSpaceshipPosition inJail state
 ]
 
 { #category : 'instance variable' }

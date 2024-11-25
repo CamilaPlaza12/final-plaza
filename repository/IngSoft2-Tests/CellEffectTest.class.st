@@ -719,3 +719,38 @@ CellEffectTest >> test21WhenThreeSpaceshipPlaysAndACellSpeedUpThenSpaceshipMoves
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 3
 ]
+
+{ #category : 'tests' }
+CellEffectTest >> test22WhenSpaceshipLandsOnJailCellThenCantMove [
+
+	| spaceships aBoard aBoardGame cellEffects |
+	cellEffects := OrderedCollection new.
+
+	cellEffects add: (Cell on: 1 of: NoEffect new).
+	cellEffects add: (Cell on: 2 of: JailEffect new).
+	cellEffects add: (Cell on: 3 of: NoEffect new).
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3)))
+		              on: aBoard
+		              with: 4 managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 3.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+]
