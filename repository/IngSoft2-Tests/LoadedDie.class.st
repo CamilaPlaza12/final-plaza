@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'sequence',
-		'sequenceIndex'
+		'sequenceIndex',
+		'faces'
 	],
 	#category : 'IngSoft2-Tests',
 	#package : 'IngSoft2-Tests'
@@ -21,16 +22,23 @@ LoadedDie class >> validateExistsWith: aSequence [
 		Error signal: 'Cannot create die with value less than 0' ].
 ]
 
+{ #category : 'accessing' }
+LoadedDie >> faces [ 
+	^faces 
+]
+
 { #category : 'instance creation' }
 LoadedDie >> initializeWith: aSequence [
 	sequence:= aSequence.
 	sequenceIndex := 1.
+	faces := sequence max.
 	
 	
 ]
 
 { #category : 'instance variables' }
 LoadedDie >> sequence [
+
 	^ sequence
 ]
 

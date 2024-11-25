@@ -15,7 +15,9 @@ Class {
 		'lastCellEffect',
 		'playingSpaceshipPosition',
 		'croupier',
-		'spaceshipInJail'
+		'spaceshipInJail',
+		'maxDiceHits',
+		'totalDiceResults'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -206,6 +208,7 @@ BoardGame >> playTurnFor: aSpaceship [
 		ifFalse: [ 
 			self validateSpaceshipTurnFor: aSpaceship.
 			self validatePlayingSpaceshipPosition.
+			self throwDice.
 			self validatesSpaceshipInJail.
 			spaceshipInJail
 				ifFalse: [ 
@@ -297,14 +300,23 @@ BoardGame >> throwDice [
 
 	| result |
 	result := 0.
-	dice do: [ :each | result := result + each throw ].
-	^ result
+	maxDiceHits := true.
+	
+	dice do: [ :each | 
+        | throwResult |
+        throwResult := each throw.
+        result := result + throwResult.
+        (throwResult ~= each faces) ifTrue: [ maxDiceHits := false ].
+    ].
+
+	totalDiceResults := result.
+
 ]
 
 { #category : 'cards' }
 BoardGame >> totalAmount [
 
-	^ self throwDice
+	^ totalDiceResults 
 	  + (croupier permanentCardsOf: playingSpaceshipPosition spaceships)
 ]
 
@@ -360,6 +372,10 @@ BoardGame >> validates: aSpaceship canPlay: aCard [
 
 { #category : 'jail' }
 BoardGame >> validatesSpaceshipInJail [
+	
+	maxDiceHits 
+	ifTrue: [ playingSpaceshipPosition inJail release. ].
+	
 	spaceshipInJail := playingSpaceshipPosition inJail state
 ]
 
