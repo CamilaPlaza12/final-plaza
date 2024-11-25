@@ -246,6 +246,19 @@ BoardGame >> recordPermanent: aCardPlayers [
 	croupier recordPermanent: aCardPlayers.
 ]
 
+{ #category : 'jail' }
+BoardGame >> releaseFromJail: aSpaceship [ 
+	
+	|spaceshipPosition|
+	
+	spaceshipPosition := spaceshipPositions detect: [ 
+		                            :each | 
+		                            each spaceships
+		                            == aSpaceship].
+	
+	spaceshipPosition inJail release.
+]
+
 { #category : 'action' }
 BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 
