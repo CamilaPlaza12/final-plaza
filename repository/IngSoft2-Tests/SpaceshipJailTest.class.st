@@ -31,7 +31,7 @@ SpaceshipJailTest >> setUp [
 		add: (Cell on: 7 of: NoEffect new);
 		add: (Cell on: 8 of: NoEffect new);
 		add: (Cell on: 9 of: NoEffect new);
-		add: (Cell on: 10 of: NoEffect new).
+		add: (Cell on: 10 of: SpeedUpEffect new).
 	
 	anOverloadCard := OverloadCard new.
 	aSpeedCard := SpeedCard new.
@@ -404,12 +404,14 @@ SpaceshipJailTest >> test09WhenASpaceshipIsInJailAndASpeedCardIsThrownAtHerThenC
 
 { #category : 'tests' }
 SpaceshipJailTest >> test10WhenASpaceshipIsInJailAndASpeedCardIsThrownAtHerThenEffectIsApplied [
+
 	| spaceships aBoard aBoardGame aCroupier |
 	spaceships := OrderedCollection new.
 	spaceships add: 'Vicky'.
 	spaceships add: 'Cami'.
 	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSpeedCard).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aSpeedCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 	aBoardGame := BoardGame
@@ -419,20 +421,186 @@ SpaceshipJailTest >> test10WhenASpaceshipIsInJailAndASpeedCardIsThrownAtHerThenE
 		              on: aBoard
 		              with: 3
 		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+
+
+	aSpeedCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Cami'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 3.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 6.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test11WhenAFreedomCardIsPlayedAndRedoCardThenHasNoEffect [
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aRedoCard with: aFreedomCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 3 2 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
 	
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
 	
-		
-	aSpeedCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
+	aFreedomCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
 	
 	aBoardGame playTurnFor: 'Cami'.
-	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 3.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 4.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 4.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	 
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test12WhenASpaceshipIsInJailAndARedoCardIsThrownAtHerThenNothingHappensUnitIsFree [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection
+			                 with: aSpeedCard
+			                 with: aRedoCard
+			                 with: aFreedomCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 3 2 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+
+	aBoardGame playTurnFor: 'Cami'.
+
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+
+	aFreedomCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Cami'.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 7.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test13WhenASpaceshipIsInJailAndARepeatCardIsThrownThenAnotherSpaceshipIsInJail [
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aRepeatCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 3 2 3 2 3 2 3 10)))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aRepeatCard isPlayedOn: aBoardGame from: 'Cami' to: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
 	
 	aBoardGame playTurnFor: 'Vicky'.
-	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 6.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	 
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test14WhenASpaceshipIsInJailAndARepeatCardIsThrownAtHerThenNothingHappens [
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aRepeatCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 9 3 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 4.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 2.
+	
+	aRepeatCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
 	 
 ]

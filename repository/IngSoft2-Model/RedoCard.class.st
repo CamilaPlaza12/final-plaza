@@ -22,22 +22,36 @@ RedoCard >> id: number [
 
 { #category : 'testing' }
 RedoCard >> isPlayedOn: aBoardGame from: aSpaceship [
+
 	aBoardGame takes: self from: aSpaceship.
 	aBoardGame dealLastPlayedCardTo: aSpaceship.
-	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship.
+	aBoardGame lastCardPlayed ifNil: [
+		self error: 'No card has been played previously.' ].
+	aBoardGame lastCardPlayed isPlayedOn: aBoardGame from: aSpaceship
 ]
 
 { #category : 'testing' }
-RedoCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
+
 	aBoardGame takes: self from: aSpaceship.
 	aBoardGame dealLastPlayedCardTo: aSpaceship.
-	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship choosing: aCard.
+	aBoardGame lastCardPlayed ifNil: [
+		self error: 'No card has been played previously.' ].
+	aBoardGame lastCardPlayed
+		isPlayedOn: aBoardGame
+		from: aSpaceship
+		choosing: aCard
 ]
 
 { #category : 'testing' }
-RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+
 	aBoardGame takes: self from: aSpaceship.
 	aBoardGame dealLastPlayedCardTo: aSpaceship.
-	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship.
-	
+	aBoardGame lastCardPlayed ifNil: [
+		self error: 'No card has been played previously.' ].
+	aBoardGame lastCardPlayed
+		isPlayedOn: aBoardGame
+		from: aSpaceship
+		to: anotherSpaceship
 ]

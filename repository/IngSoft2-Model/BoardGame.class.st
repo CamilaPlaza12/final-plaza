@@ -10,7 +10,6 @@ Class {
 		'winner',
 		'rounds',
 		'isOver',
-		'lastCardPlayed',
 		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
@@ -97,7 +96,11 @@ BoardGame >> applyMoonWalkEffect: cellsBackward [
 
 { #category : 'effects' }
 BoardGame >> applyMovingEffect: aNumber [ 
-	self moves: playingSpaceshipPosition to: aNumber.
+	
+	spaceshipInJail := playingSpaceshipPosition inJail state.
+	spaceshipInJail
+	ifFalse: [ self moves: playingSpaceshipPosition to: aNumber. ].
+	
 ]
 
 { #category : 'effects' }
@@ -256,7 +259,7 @@ BoardGame >> releaseFromJail: aSpaceship [
 		                            each spaceships
 		                            == aSpaceship].
 	
-	spaceshipPosition inJail release.
+	croupier releaseFromJail: spaceshipPosition.
 ]
 
 { #category : 'action' }
