@@ -5,10 +5,6 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
-InJail >> captureIn: aJail [
-]
-
 { #category : 'accessing' }
 InJail >> information [
 	

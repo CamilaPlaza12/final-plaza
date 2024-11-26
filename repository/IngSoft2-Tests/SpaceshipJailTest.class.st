@@ -49,6 +49,16 @@ SpaceshipJailTest >> setUp [
 
 ]
 
+{ #category : 'asserting' }
+SpaceshipJailTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+			self assert: error messageText equals: anErrorMessage ].
+]
+
 { #category : 'tests' }
 SpaceshipJailTest >> test01WhenSpaceshipLandsOnJailCellThenCantMove [
 
@@ -830,4 +840,60 @@ SpaceshipJailTest >> test20WhenLastEffectHyperJumpAndRepeatCardButSpaceshipInJai
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
 	 
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test21WhenFreedomCardIsThrownThenNeedToChooseAPlayer [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aFreedomCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 3 2 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	self
+		should: [ aFreedomCard isPlayedOn: aBoardGame from: 'Vicky'.]
+		raise: Error
+		withMessage: 'To play card, choose a player'.
+]
+
+{ #category : 'tests' }
+SpaceshipJailTest >> test22WhenFreedomCardIsThrownChoosingACardThenNeedToChooseAPlayer [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffectsWithJail withLenght: (Parsec of: 15).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aFreedomCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 3 2 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	self
+		should: [ aFreedomCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard ]
+		raise: Error
+		withMessage: 'To play card, choose a player'.
 ]

@@ -9,12 +9,6 @@ Class {
 }
 
 { #category : 'instance variable' }
-RepeatCard >> id [
-
-	^ cardId
-]
-
-{ #category : 'instance variable' }
 RepeatCard >> id: number [
 
 	cardId := number
