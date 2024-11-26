@@ -43,8 +43,3 @@ AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'You cannot choose a player for acceleration card.'
 ]
-
-{ #category : 'instance variable' }
-AccelerationCard >> name [
-	'acceleration'.
-]

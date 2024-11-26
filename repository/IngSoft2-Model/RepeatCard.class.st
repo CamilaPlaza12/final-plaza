@@ -9,12 +9,6 @@ Class {
 }
 
 { #category : 'instance variable' }
-RepeatCard >> id [
-
-	^ cardId
-]
-
-{ #category : 'instance variable' }
 RepeatCard >> id: number [
 
 	cardId := number
@@ -33,10 +27,4 @@ RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 { #category : 'testing' }
 RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	aBoardGame repeatCardTo: anotherSpaceship.
-]
-
-{ #category : 'instance variable' }
-RepeatCard >> name [
-
-	^ 'repeat'
 ]

@@ -102,6 +102,13 @@ Croupier >> recordPermanent: aCardPlayers [
 	lastCardPlayed := aCardPlayers cards
 ]
 
+{ #category : 'jail' }
+Croupier >> releaseFromJail: aSpaceshipPosition [
+
+	aSpaceshipPosition inJail release.
+	lastCardPlayed := FreedomCard new.
+]
+
 { #category : 'action' }
 Croupier >> takes: aCard from: aSpaceship [ 
 	| aPlayerCards |

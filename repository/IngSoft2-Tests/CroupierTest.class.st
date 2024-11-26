@@ -20,23 +20,24 @@ CroupierTest >> setUp [
 
 	super setUp.
 	cellEffects := OrderedCollection new.
-	cellEffects add: (Cell on: 1 of: NoEffect new).
-	cellEffects add: (Cell on: 2 of: NoEffect new).
-	cellEffects add: (Cell on: 3 of: NoEffect new).
-	cellEffects add: (Cell on: 4 of: NoEffect new).
-	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
-	cellEffects add: (Cell on: 6 of: NoEffect new).
-	cellEffects add: (Cell on: 7 of: NoEffect new).
-	cellEffects add: (Cell on: 8 of: NoEffect new).
-	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
-	cellEffects add: (Cell on: 10 of: SpeedUpEffect new).
-
+	cellEffects
+		add: (Cell on: 1 of: NoEffect new);
+		add: (Cell on: 2 of: NoEffect new);
+		add: (Cell on: 3 of: NoEffect new);
+		add: (Cell on: 4 of: NoEffect new);
+		add: (Cell on: 5 of: DrawCardEffect new);
+		add: (Cell on: 6 of: NoEffect new);
+		add: (Cell on: 7 of: NoEffect new);
+		add: (Cell on: 8 of: NoEffect new);
+		add: (Cell on: 9 of: AtomicBombEffect new);
+		add: (Cell on: 10 of: SpeedUpEffect new).
+	
 	anOverloadCard := OverloadCard new.
 	aSpeedCard := SpeedCard new.
 	anAccelerationCard := AccelerationCard new.
 	aCancellationCard := CancellationCard new.
 	aRepeatCard := RepeatCard new.
-	aRedoCard := RedoCard new
+	aRedoCard := RedoCard new.
 ]
 
 { #category : 'asserting' }

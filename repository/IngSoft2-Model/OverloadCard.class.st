@@ -48,9 +48,3 @@ OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 		                with: (OrderedCollection with: anotherSpaceship).
 	aBoardGame recordPermanent: aCardPlayers.
 ]
-
-{ #category : 'instance variables' }
-OverloadCard >> name [
-
-	^'overload'.
-]

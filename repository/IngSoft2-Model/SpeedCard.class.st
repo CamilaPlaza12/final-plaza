@@ -49,9 +49,3 @@ SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	aBoardGame recordPermanent: aCardPlayers.
 	
 ]
-
-{ #category : 'instance variable' }
-SpeedCard >> name [
-
-	^ 'speed'
-]
