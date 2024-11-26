@@ -56,8 +56,9 @@ BoardGame >> appliesCancellationCardTo: aCard [
 { #category : 'effects' }
 BoardGame >> applyAtomicBombEffect [
 
-	spaceshipPositions do: [ :spaceship | 
-		self moves: spaceship to: (spaceship position cellNumber negated) + 1 ]
+	spaceshipPositions do: [ :spaceship |
+		spaceship inJail state ifFalse: [
+			self moves: spaceship to: spaceship position cellNumber negated + 1 ] ]
 ]
 
 { #category : 'effects' }
@@ -72,10 +73,12 @@ BoardGame >> applyEffect [
 
 { #category : 'effects' }
 BoardGame >> applyHyperJumpEffect: parsecs [
+    playingSpaceshipPosition inJail state ifFalse: [
+        self 
+            moves: playingSpaceshipPosition
+            to: parsecs // board parsecsPerCell
+    ].
 
-	self
-		moves: playingSpaceshipPosition
-		to: parsecs // board parsecsPerCell
 ]
 
 { #category : 'jail' }
@@ -87,11 +90,11 @@ BoardGame >> applyJailEffect [
 { #category : 'effects' }
 BoardGame >> applyMoonWalkEffect: cellsBackward [
 
-	(spaceshipPositions select: [ :spaceshipPosition | 
-			playingSpaceshipPosition spaceships ~= spaceshipPosition spaceships ])
-		do: [ :spaceshipPosition | 
-			self moves: spaceshipPosition to: cellsBackward negated ].
-
+	(spaceshipPositions select: [ :spaceshipPosition |
+		 playingSpaceshipPosition spaceships ~= spaceshipPosition spaceships ])
+		do: [ :spaceshipPosition |
+			spaceshipPosition inJail state ifFalse: [
+				self moves: spaceshipPosition to: cellsBackward negated ] ]
 ]
 
 { #category : 'effects' }
