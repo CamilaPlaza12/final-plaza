@@ -6,15 +6,21 @@ Class {
 		'playersCards',
 		'indexCards',
 		'permanentCardsPlayers',
-		'lastCardPlayed'
+		'lastCardPlayed',
+		'reversedCardEffect'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
 }
 
 { #category : 'initialization' }
-Croupier class >> handling: aDeckOfCards [ 
-	^(self new) handling: aDeckOfCards.
+Croupier class >> handling: arg1 [
+
+	^ self new handling: arg1
+]
+
+{ #category : 'jail' }
+Croupier >> applyReverseEffect [
 ]
 
 { #category : 'action' }
@@ -107,6 +113,12 @@ Croupier >> releaseFromJail: aSpaceshipPosition [
 
 	aSpaceshipPosition inJail release.
 	lastCardPlayed := FreedomCard new.
+]
+
+{ #category : 'instance creation' }
+Croupier >> reversedCardEffect [
+
+	^ reversedCardEffect effect information
 ]
 
 { #category : 'action' }

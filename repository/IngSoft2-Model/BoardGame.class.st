@@ -3,7 +3,6 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'spaceships',
-		'turn',
 		'dice',
 		'spaceshipPositions',
 		'board',
@@ -16,7 +15,8 @@ Class {
 		'croupier',
 		'spaceshipInJail',
 		'maxDiceHits',
-		'totalDiceResults'
+		'totalDiceResults',
+		'gameTurns'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -106,6 +106,12 @@ BoardGame >> applyMovingEffect: aNumber [
 	
 ]
 
+{ #category : 'jail' }
+BoardGame >> applyReverseEffect [
+	
+	croupier applyReverseEffect
+]
+
 { #category : 'effects' }
 BoardGame >> dealACardEffect [
 
@@ -118,12 +124,11 @@ BoardGame >> dealLastPlayedCardTo: aSpaceship [
 ]
 
 { #category : 'instance creation' }
-BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [ 
+BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [
 
 	board := aBoard.
 	spaceships := manySpaceships.
 	dice := manyDice.
-	turn := 1.
 	isOver := false.
 	rounds := anAmountOfRounds.
 	winner := ''.
@@ -131,6 +136,7 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	croupier := aCroupier.
 	croupier dealCardsWhenGameIsStartedTo: spaceships.
 	self spaceshipsInitialization.
+	gameTurns := GameTurns initializeTurnsOf: spaceships.
 ]
 
 { #category : 'accessing' }
@@ -284,6 +290,11 @@ BoardGame >> repeatCardTo: aSpaceship [
 	lastCellEffect implementOn: self
 ]
 
+{ #category : 'accessing' }
+BoardGame >> reversedEffect [
+	^ croupier reversedCardEffect .
+]
+
 { #category : 'action' }
 BoardGame >> spaceshipPosition: aName [
 
@@ -341,7 +352,8 @@ BoardGame >> totalAmount [
 
 { #category : 'accessing' }
 BoardGame >> turn [
-	turn := turn \\ spaceships size + 1 
+
+	gameTurns nextTurn
 ]
 
 { #category : 'validation' }
@@ -356,7 +368,7 @@ BoardGame >> validatePlayingSpaceshipPosition [
 	playingSpaceshipPosition := spaceshipPositions detect: [ 
 		                            :spaceshipPosition | 
 		                            spaceshipPosition spaceships
-		                            == (spaceships at: turn) ]
+		                            == (spaceships at: (gameTurns turn)) ]
 ]
 
 { #category : 'validation' }
@@ -369,7 +381,7 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : 'validation' }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
-	(spaceships at: turn) = aSpaceship
+	(spaceships at: (gameTurns turn)) = aSpaceship
 		ifFalse: [ Error signal: 'Its not your turn' ].
 ]
 
