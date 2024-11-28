@@ -15,6 +15,14 @@ GameTurns class >> initializeTurnsOf: aGroupOfSpaceships [
 	^(self new) initializeTurnsOf: aGroupOfSpaceships.
 ]
 
+{ #category : 'jail' }
+GameTurns >> applyReverseEffect [
+
+	self reverseEffect
+		ifTrue: [ reverseEffect unreverse ]
+		ifFalse: [ reverseEffect reverse ]
+]
+
 { #category : 'initialization' }
 GameTurns >> initializeTurnsOf: aGroupOfSpaceships [
 
@@ -27,6 +35,12 @@ GameTurns >> initializeTurnsOf: aGroupOfSpaceships [
 GameTurns >> nextTurn [
 
 	turn := turn \\ spaceships size + 1
+]
+
+{ #category : 'initialization' }
+GameTurns >> reverseEffect [
+
+	^ reverseEffect effect information
 ]
 
 { #category : 'initialization' }

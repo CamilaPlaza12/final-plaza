@@ -103,3 +103,59 @@ ReversedEffectTest >> test02WhenBoardGameHasUnreversedGameEffectThenSpaceshipsOr
 		assert: aBoardGame spaceships equals: (OrderedCollection with: 'Vicky' with: 'Cami').
 
 ]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test03WhenReverseCardThenReverseEffectTrue [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+		
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'. 
+
+	self assert: aBoardGame reversedEffect equals: true.
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test04WhenTwoReverseCardThenReverseEffectFalse [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+		
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'. 
+	self assert: aBoardGame reversedEffect equals: true.
+	
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'. 
+	self assert: aBoardGame reversedEffect equals: false.
+]

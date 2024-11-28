@@ -2,14 +2,12 @@ Class {
 	#name : 'BoardGame',
 	#superclass : 'Object',
 	#instVars : [
-		'spaceships',
 		'dice',
 		'spaceshipPositions',
 		'board',
 		'winner',
 		'rounds',
 		'isOver',
-		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
 		'croupier',
@@ -109,7 +107,8 @@ BoardGame >> applyMovingEffect: aNumber [
 { #category : 'jail' }
 BoardGame >> applyReverseEffect [
 	
-	croupier applyReverseEffect
+	croupier applyReverseEffectTo: gameTurns .
+
 ]
 
 { #category : 'effects' }
@@ -127,16 +126,14 @@ BoardGame >> dealLastPlayedCardTo: aSpaceship [
 BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [
 
 	board := aBoard.
-	spaceships := manySpaceships.
 	dice := manyDice.
 	isOver := false.
 	rounds := anAmountOfRounds.
 	winner := ''.
 	lastCellEffect := NoEffect new.
 	croupier := aCroupier.
-	croupier dealCardsWhenGameIsStartedTo: spaceships.
-	self spaceshipsInitialization.
-	gameTurns := GameTurns initializeTurnsOf: spaceships.
+	croupier dealCardsWhenGameIsStartedTo: manySpaceships.
+	self spaceshipsInitialization: manySpaceships.
 ]
 
 { #category : 'accessing' }
@@ -292,7 +289,7 @@ BoardGame >> repeatCardTo: aSpaceship [
 
 { #category : 'accessing' }
 BoardGame >> reversedEffect [
-	^ croupier reversedCardEffect .
+	^ gameTurns reverseEffect .
 ]
 
 { #category : 'action' }
@@ -304,18 +301,19 @@ BoardGame >> spaceshipPosition: aName [
 
 { #category : 'accessing' }
 BoardGame >> spaceships [
-	^ spaceships
+	^ gameTurns spaceships.
 ]
 
 { #category : 'initialization' }
-BoardGame >> spaceshipsInitialization [
+BoardGame >> spaceshipsInitialization: aGroupOfSpaceships [
 
 	| size |
 	size := 0.
+	gameTurns := GameTurns initializeTurnsOf: aGroupOfSpaceships.
 	spaceshipPositions := OrderedCollection new.
-	[ spaceships size > size ] whileTrue: [ 
+	[ aGroupOfSpaceships size > size ] whileTrue: [ 
 		spaceshipPositions add:
-			(SpaceshipPosition named: (spaceships at: size + 1) on: (Position on: 1 at: 1)).
+			(SpaceshipPosition named: (aGroupOfSpaceships at: size + 1) on: (Position on: 1 at: 1)).
 		size := size + 1 ]
 ]
 
@@ -368,20 +366,20 @@ BoardGame >> validatePlayingSpaceshipPosition [
 	playingSpaceshipPosition := spaceshipPositions detect: [ 
 		                            :spaceshipPosition | 
 		                            spaceshipPosition spaceships
-		                            == (spaceships at: (gameTurns turn)) ]
+		                            == (self spaceships at: (gameTurns turn)) ]
 ]
 
 { #category : 'validation' }
 BoardGame >> validateSpaceshipExists: aSpaceship [
 
-	(spaceships includes: aSpaceship)
+	(self spaceships includes: aSpaceship)
 		ifFalse: [ Error signal: 'That spaceship doesn´t exists' ].
 ]
 
 { #category : 'validation' }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
-	(spaceships at: (gameTurns turn)) = aSpaceship
+	(self spaceships at: (gameTurns turn)) = aSpaceship
 		ifFalse: [ Error signal: 'Its not your turn' ].
 ]
 
