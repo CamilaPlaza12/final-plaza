@@ -159,3 +159,218 @@ ReversedEffectTest >> test04WhenTwoReverseCardThenReverseEffectFalse [
 	aReverseCard isPlayedOn: aBoardGame from: 'Cami'. 
 	self assert: aBoardGame reversedEffect equals: false.
 ]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test05WhenBoardGameHasReversedGameEffectThenSpaceshipsPlaysInReversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Vicky'.	
+	aBoardGame playTurnFor: 'Delfi'.
+	aBoardGame playTurnFor: 'Cami'.
+
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test06WhenReverseCardThenSpaceshipsPlaysInReversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+		
+	aBoardGame playTurnFor: 'Vicky'.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Cami'.	
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Delfi'.
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test07WhenReverseCardThenLotOfSpaceshipsPlaysInReversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: '1'.
+	spaceships add: '2'.
+	spaceships add: '3'.
+	spaceships add: '4'.
+	spaceships add: '5'.
+	spaceships add: '6'.
+		
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: '1'.
+
+	aReverseCard isPlayedOn: aBoardGame from: '2'.
+	
+	aBoardGame playTurnFor: '2'.	
+	aBoardGame playTurnFor: '1'.
+	aBoardGame playTurnFor: '6'.
+	aBoardGame playTurnFor: '5'.	
+	aBoardGame playTurnFor: '4'.
+			
+
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test08WhenTwoReverseCardThenSpaceshipsPlaysInUnreversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Cami'.	
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Delfi'.
+	
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Cami'.	
+	aBoardGame playTurnFor: 'Delfi'.
+	aBoardGame playTurnFor: 'Vicky'.
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test09WhenTwoReverseCardThenLotOfSpaceshipsPlaysInUnreversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: '1'.
+	spaceships add: '2'.
+	spaceships add: '3'.
+	spaceships add: '4'.
+	spaceships add: '5'.
+	spaceships add: '6'.
+		
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: '1'.
+
+	aReverseCard isPlayedOn: aBoardGame from: '2'.
+	
+	aBoardGame playTurnFor: '2'.	
+	aBoardGame playTurnFor: '1'.
+	aBoardGame playTurnFor: '6'.
+	aBoardGame playTurnFor: '5'.	
+	aBoardGame playTurnFor: '4'.
+			
+	aReverseCard isPlayedOn: aBoardGame from: '2'.
+	
+	aBoardGame playTurnFor: '3'.	
+	aBoardGame playTurnFor: '4'.
+	aBoardGame playTurnFor: '5'.
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test10WhenReverseCardAndSpaceshipsWantsToPlayThenItsNotHerTurn [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	aBoardGame playTurnFor: 'Vicky'.	
+
+	self should: [ aBoardGame playTurnFor: 'Cami'. ] 
+	raise: Error  
+	withMessage: 'Its not your turn' .	
+]

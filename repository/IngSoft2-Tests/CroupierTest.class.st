@@ -950,7 +950,7 @@ CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEff
 	aBoardGame playTurnFor: 'Cami'.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
-	
+
 	aRepeatCard isPlayedOn: aBoardGame from: 'Delfi' to: 'Vicky'.
 
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 6.

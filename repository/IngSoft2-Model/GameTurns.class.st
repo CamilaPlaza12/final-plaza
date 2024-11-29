@@ -19,8 +19,12 @@ GameTurns class >> initializeTurnsOf: aGroupOfSpaceships [
 GameTurns >> applyReverseEffect [
 
 	self reverseEffect
-		ifTrue: [ reverseEffect unreverse ]
-		ifFalse: [ reverseEffect reverse ]
+		ifTrue: [ 
+			reverseEffect unreverse.
+		 ]
+		ifFalse: [ 
+			reverseEffect reverse.
+		 ]
 ]
 
 { #category : 'initialization' }
@@ -34,7 +38,12 @@ GameTurns >> initializeTurnsOf: aGroupOfSpaceships [
 { #category : 'initialization' }
 GameTurns >> nextTurn [
 
-	turn := turn \\ spaceships size + 1
+	turn := self reverseEffect
+		        ifTrue: [ turn - 1 ]
+		        ifFalse: [ turn + 1 ].
+	
+	(turn > spaceships size) ifTrue: [ turn:=  1].
+	(turn < 1 ) ifTrue: [ turn := spaceships size ].
 ]
 
 { #category : 'initialization' }
@@ -44,8 +53,9 @@ GameTurns >> reverseEffect [
 ]
 
 { #category : 'initialization' }
-GameTurns >> spaceships [ 
-	^spaceships 
+GameTurns >> spaceships [
+
+	^spaceships.
 ]
 
 { #category : 'initialization' }
