@@ -20,6 +20,12 @@ Croupier class >> handling: arg1 [
 ]
 
 { #category : 'jail' }
+Croupier >> applyDoubleEffectTo: aGameTurns [
+
+	aGameTurns applyDoubleEffect .
+]
+
+{ #category : 'jail' }
 Croupier >> applyReverseEffectTo: aGameTurns [
 
 	aGameTurns applyReverseEffect.

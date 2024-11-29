@@ -686,7 +686,6 @@ SpaceshipJailTest >> test16WhenLastEffectMoonWalkAndRepeatCardButSpaceshipInJail
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 12.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
 	
-	
 	aRepeatCard isPlayedOn: aBoardGame from: 'Cami' to: 'Delfi'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.

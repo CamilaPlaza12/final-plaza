@@ -9,10 +9,10 @@ Class {
 		'aCancellationCard',
 		'aRepeatCard',
 		'aRedoCard',
-		'aFreedomCard',
 		'cellEffects',
 		'aReverseCard',
-		'aSkipCard'
+		'aSkipCard',
+		'aDoubleCard'
 	],
 	#category : 'IngSoft2-Tests',
 	#package : 'IngSoft2-Tests'
@@ -43,6 +43,7 @@ GameTurnTest >> setUp [
 	aRedoCard := RedoCard new.
 	aReverseCard := ReverseCard new.
 	aSkipCard := SkipCard new.
+	aDoubleCard := DoubleCard new.
 
 ]
 
@@ -653,4 +654,104 @@ GameTurnTest >> test18WhenTwoSkipCardAndReverseCardThenNextSpaceshipPlays [
 	
 
 
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test20WhenDoubleCardThenSpaceshipPlaysTwoTimes [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aDoubleCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test21WhenDoubleCardAndSkipCardThenSpaceshipPlaysOneTime [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard with: aSkipCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Cami'.
+
+	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
+	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Delfi'
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test22WhenReverseCardAndDoubleCardThenSpaceshipPlays [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Cami'.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Delfi'.
+
+	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Delfi'.
+	aBoardGame playTurnFor: 'Cami'.
+	aBoardGame playTurnFor: 'Vicky'
 ]

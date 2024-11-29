@@ -59,6 +59,13 @@ BoardGame >> applyAtomicBombEffect [
 			self moves: spaceship to: spaceship position cellNumber negated + 1 ] ]
 ]
 
+{ #category : 'jail' }
+BoardGame >> applyDoubleEffect [
+	
+	croupier applyDoubleEffectTo: gameTurns .
+
+]
+
 { #category : 'effects' }
 BoardGame >> applyEffect [
 
