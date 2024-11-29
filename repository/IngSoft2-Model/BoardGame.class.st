@@ -313,6 +313,12 @@ BoardGame >> spaceshipPosition: aName [
 		   spaceshipPosition spaceships == aName ]) position
 ]
 
+{ #category : 'validation' }
+BoardGame >> spaceshipTurn [
+
+	^(self spaceships at: (gameTurns turn))
+]
+
 { #category : 'accessing' }
 BoardGame >> spaceships [
 	^ gameTurns spaceships.
@@ -393,7 +399,7 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : 'validation' }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
-	(self spaceships at: (gameTurns turn)) = aSpaceship
+	(self spaceshipTurn ) = aSpaceship
 		ifFalse: [ Error signal: 'Its not your turn' ].
 ]
 

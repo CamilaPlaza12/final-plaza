@@ -190,7 +190,8 @@ GameTurnTest >> test05WhenBoardGameHasReversedGameEffectThenSpaceshipsPlaysInRev
 	
 	aBoardGame playTurnFor: 'Vicky'.	
 	aBoardGame playTurnFor: 'Delfi'.
-	aBoardGame playTurnFor: 'Cami'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Cami'.
 
 ]
 
@@ -223,7 +224,8 @@ GameTurnTest >> test06WhenReverseCardThenSpaceshipsPlaysInReversedOrder [
 	
 	aBoardGame playTurnFor: 'Cami'.	
 	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame playTurnFor: 'Delfi'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
 ]
 
 { #category : 'tests' }
@@ -231,7 +233,7 @@ GameTurnTest >> test07WhenReverseCardThenLotOfSpaceshipsPlaysInReversedOrder [
 
 	| spaceships aBoard aBoardGame aCroupier |
 	aDeckOfCards := DeckOfCards with:
-		                (OrderedCollection with: aReverseCard ).
+		                (OrderedCollection with: aReverseCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -242,7 +244,7 @@ GameTurnTest >> test07WhenReverseCardThenLotOfSpaceshipsPlaysInReversedOrder [
 	spaceships add: '4'.
 	spaceships add: '5'.
 	spaceships add: '6'.
-		
+
 	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
 	aBoardGame := BoardGame
 		              playedBy: spaceships
@@ -255,14 +257,21 @@ GameTurnTest >> test07WhenReverseCardThenLotOfSpaceshipsPlaysInReversedOrder [
 	aBoardGame playTurnFor: '1'.
 
 	aReverseCard isPlayedOn: aBoardGame from: '2'.
-	
-	aBoardGame playTurnFor: '2'.	
-	aBoardGame playTurnFor: '1'.
-	aBoardGame playTurnFor: '6'.
-	aBoardGame playTurnFor: '5'.	
-	aBoardGame playTurnFor: '4'.
-			
 
+	self assert: aBoardGame spaceshipTurn equals: '2'.
+	aBoardGame playTurnFor: '2'.
+
+	self assert: aBoardGame spaceshipTurn equals: '1'.
+	aBoardGame playTurnFor: '1'.
+
+	self assert: aBoardGame spaceshipTurn equals: '6'.
+	aBoardGame playTurnFor: '6'.
+
+	self assert: aBoardGame spaceshipTurn equals: '5'.
+	aBoardGame playTurnFor: '5'.
+
+	self assert: aBoardGame spaceshipTurn equals: '4'.
+	aBoardGame playTurnFor: '4'
 ]
 
 { #category : 'tests' }
@@ -270,7 +279,7 @@ GameTurnTest >> test08WhenTwoReverseCardThenSpaceshipsPlaysInUnreversedOrder [
 
 	| spaceships aBoard aBoardGame aCroupier |
 	aDeckOfCards := DeckOfCards with:
-		                (OrderedCollection with: aReverseCard ).
+		                (OrderedCollection with: aReverseCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -278,7 +287,7 @@ GameTurnTest >> test08WhenTwoReverseCardThenSpaceshipsPlaysInUnreversedOrder [
 	spaceships add: 'Vicky'.
 	spaceships add: 'Cami'.
 	spaceships add: 'Delfi'.
-	
+
 	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
 	aBoardGame := BoardGame
 		              playedBy: spaceships
@@ -291,16 +300,17 @@ GameTurnTest >> test08WhenTwoReverseCardThenSpaceshipsPlaysInUnreversedOrder [
 	aBoardGame playTurnFor: 'Vicky'.
 
 	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
-	
-	aBoardGame playTurnFor: 'Cami'.	
+
+	aBoardGame playTurnFor: 'Cami'.
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Delfi'.
-	
+
 	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
-	
-	aBoardGame playTurnFor: 'Cami'.	
+
+	self assert: aBoardGame spaceshipTurn equals: 'Cami'.
+	aBoardGame playTurnFor: 'Cami'.
 	aBoardGame playTurnFor: 'Delfi'.
-	aBoardGame playTurnFor: 'Vicky'.
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
 ]
 
 { #category : 'tests' }
@@ -341,8 +351,13 @@ GameTurnTest >> test09WhenTwoReverseCardThenLotOfSpaceshipsPlaysInUnreversedOrde
 			
 	aReverseCard isPlayedOn: aBoardGame from: '2'.
 	
+	self assert: aBoardGame spaceshipTurn equals: '3'.
 	aBoardGame playTurnFor: '3'.	
+	
+	self assert: aBoardGame spaceshipTurn equals: '4'.
 	aBoardGame playTurnFor: '4'.
+	
+	self assert: aBoardGame spaceshipTurn equals: '5'.
 	aBoardGame playTurnFor: '5'.
 ]
 
@@ -512,7 +527,7 @@ GameTurnTest >> test14WhenSkipCardThenNextSpaceshipPlays [
 
 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
 
-	aBoardGame playTurnFor: 'Delfi'.
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
 
 ]
 
@@ -552,7 +567,10 @@ GameTurnTest >> test15WhenSkipCardThenSpaceshipCantPlay [
 GameTurnTest >> test16WhenReverseCardAndSkipCardThenNextSpaceshipPlays [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard with: aReverseCard ).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection
+			                 with: aSkipCard
+			                 with: aReverseCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -569,26 +587,25 @@ GameTurnTest >> test16WhenReverseCardAndSkipCardThenNextSpaceshipPlays [
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier.
-	
-	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'. 
-	
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Delfi'.
 
 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
-	
-	aBoardGame playTurnFor: 'Vicky'.
-	
-	
 
-
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
 ]
 
 { #category : 'tests' }
 GameTurnTest >> test17WhenSpaceshipPlaysWithReverseCardAndSkipCardThenNextSpaceshipPlays [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard with: aReverseCard ).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection
+			                 with: aSkipCard
+			                 with: aReverseCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -605,25 +622,26 @@ GameTurnTest >> test17WhenSpaceshipPlaysWithReverseCardAndSkipCardThenNextSpaces
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier.
-		
+
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'. 
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Cami'.
+
 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
 
-	aBoardGame playTurnFor: 'Vicky'.	
-	aBoardGame playTurnFor: 'Delfi'.
-	
-	
-
-
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
 ]
 
 { #category : 'tests' }
 GameTurnTest >> test18WhenTwoSkipCardAndReverseCardThenNextSpaceshipPlays [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard with: aReverseCard ).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection
+			                 with: aSkipCard
+			                 with: aReverseCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -640,19 +658,59 @@ GameTurnTest >> test18WhenTwoSkipCardAndReverseCardThenNextSpaceshipPlays [
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier.
-		
+
 	aBoardGame playTurnFor: 'Vicky'.
 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
-	aSkipCard isPlayedOn: aBoardGame from: 'Cami'. 
+	aSkipCard isPlayedOn: aBoardGame from: 'Cami'.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'. 	
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Cami'.
 	aBoardGame playTurnFor: 'Cami'.
-	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame playTurnFor: 'Delfi'.	
-	
 
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'.
+	aBoardGame playTurnFor: 'Vicky'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
+	aBoardGame playTurnFor: 'Delfi'
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test19WhenReverseCardAndDoubleCardThenSpaceshipPlays [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Cami'.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
+	aBoardGame playTurnFor: 'Delfi'.
+
+	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
 
 ]
 
@@ -660,7 +718,8 @@ GameTurnTest >> test18WhenTwoSkipCardAndReverseCardThenNextSpaceshipPlays [
 GameTurnTest >> test20WhenDoubleCardThenSpaceshipPlaysTwoTimes [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aDoubleCard).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -683,8 +742,7 @@ GameTurnTest >> test20WhenDoubleCardThenSpaceshipPlaysTwoTimes [
 
 	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
 
-	aBoardGame playTurnFor: 'Vicky'.
-
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
 ]
 
 { #category : 'tests' }
@@ -716,42 +774,5 @@ GameTurnTest >> test21WhenDoubleCardAndSkipCardThenSpaceshipPlaysOneTime [
 	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
 
-	aBoardGame playTurnFor: 'Delfi'
-]
-
-{ #category : 'tests' }
-GameTurnTest >> test22WhenReverseCardAndDoubleCardThenSpaceshipPlays [
-
-	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with:
-		                (OrderedCollection with: aDoubleCard with: aReverseCard ).
-	aCroupier := Croupier handling: aDeckOfCards.
-
-
-	spaceships := OrderedCollection new.
-	spaceships add: 'Vicky'.
-	spaceships add: 'Cami'.
-	spaceships add: 'Delfi'.
-
-	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
-	aBoardGame := BoardGame
-		              playedBy: spaceships
-		              rolling:
-		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
-		              on: aBoard
-		              with: 2
-		              managedBy: aCroupier.
-
-	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame playTurnFor: 'Cami'.
-
-	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
-
-	aBoardGame playTurnFor: 'Delfi'.
-
-	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
-
-	aBoardGame playTurnFor: 'Delfi'.
-	aBoardGame playTurnFor: 'Cami'.
-	aBoardGame playTurnFor: 'Vicky'
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
 ]
