@@ -2,21 +2,19 @@ Class {
 	#name : 'BoardGame',
 	#superclass : 'Object',
 	#instVars : [
-		'spaceships',
-		'turn',
 		'dice',
 		'spaceshipPositions',
 		'board',
 		'winner',
 		'rounds',
 		'isOver',
-		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
 		'croupier',
 		'spaceshipInJail',
 		'maxDiceHits',
-		'totalDiceResults'
+		'totalDiceResults',
+		'gameTurns'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -59,6 +57,13 @@ BoardGame >> applyAtomicBombEffect [
 	spaceshipPositions do: [ :spaceship |
 		spaceship inJail state ifFalse: [
 			self moves: spaceship to: spaceship position cellNumber negated + 1 ] ]
+]
+
+{ #category : 'jail' }
+BoardGame >> applyDoubleEffect [
+	
+	croupier applyDoubleEffectTo: gameTurns .
+
 ]
 
 { #category : 'effects' }
@@ -106,6 +111,20 @@ BoardGame >> applyMovingEffect: aNumber [
 	
 ]
 
+{ #category : 'jail' }
+BoardGame >> applyReverseEffect [
+	
+	croupier applyReverseEffectTo: gameTurns .
+
+]
+
+{ #category : 'jail' }
+BoardGame >> applySkipEffect [
+	
+	croupier applySkipEffectTo: gameTurns .
+
+]
+
 { #category : 'effects' }
 BoardGame >> dealACardEffect [
 
@@ -118,19 +137,17 @@ BoardGame >> dealLastPlayedCardTo: aSpaceship [
 ]
 
 { #category : 'instance creation' }
-BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [ 
+BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard winningAfter: anAmountOfRounds managedBy: aCroupier [
 
 	board := aBoard.
-	spaceships := manySpaceships.
 	dice := manyDice.
-	turn := 1.
 	isOver := false.
 	rounds := anAmountOfRounds.
 	winner := ''.
 	lastCellEffect := NoEffect new.
 	croupier := aCroupier.
-	croupier dealCardsWhenGameIsStartedTo: spaceships.
-	self spaceshipsInitialization.
+	croupier dealCardsWhenGameIsStartedTo: manySpaceships.
+	self spaceshipsInitialization: manySpaceships.
 ]
 
 { #category : 'accessing' }
@@ -284,6 +301,11 @@ BoardGame >> repeatCardTo: aSpaceship [
 	lastCellEffect implementOn: self
 ]
 
+{ #category : 'accessing' }
+BoardGame >> reversedEffect [
+	^ gameTurns reverseEffect .
+]
+
 { #category : 'action' }
 BoardGame >> spaceshipPosition: aName [
 
@@ -291,20 +313,27 @@ BoardGame >> spaceshipPosition: aName [
 		   spaceshipPosition spaceships == aName ]) position
 ]
 
+{ #category : 'validation' }
+BoardGame >> spaceshipTurn [
+
+	^(self spaceships at: (gameTurns turn))
+]
+
 { #category : 'accessing' }
 BoardGame >> spaceships [
-	^ spaceships
+	^ gameTurns spaceships.
 ]
 
 { #category : 'initialization' }
-BoardGame >> spaceshipsInitialization [
+BoardGame >> spaceshipsInitialization: aGroupOfSpaceships [
 
 	| size |
 	size := 0.
+	gameTurns := GameTurns initializeTurnsOf: aGroupOfSpaceships.
 	spaceshipPositions := OrderedCollection new.
-	[ spaceships size > size ] whileTrue: [ 
+	[ aGroupOfSpaceships size > size ] whileTrue: [ 
 		spaceshipPositions add:
-			(SpaceshipPosition named: (spaceships at: size + 1) on: (Position on: 1 at: 1)).
+			(SpaceshipPosition named: (aGroupOfSpaceships at: size + 1) on: (Position on: 1 at: 1)).
 		size := size + 1 ]
 ]
 
@@ -341,7 +370,8 @@ BoardGame >> totalAmount [
 
 { #category : 'accessing' }
 BoardGame >> turn [
-	turn := turn \\ spaceships size + 1 
+
+	gameTurns nextTurn
 ]
 
 { #category : 'validation' }
@@ -356,20 +386,20 @@ BoardGame >> validatePlayingSpaceshipPosition [
 	playingSpaceshipPosition := spaceshipPositions detect: [ 
 		                            :spaceshipPosition | 
 		                            spaceshipPosition spaceships
-		                            == (spaceships at: turn) ]
+		                            == (self spaceships at: (gameTurns turn)) ]
 ]
 
 { #category : 'validation' }
 BoardGame >> validateSpaceshipExists: aSpaceship [
 
-	(spaceships includes: aSpaceship)
+	(self spaceships includes: aSpaceship)
 		ifFalse: [ Error signal: 'That spaceship doesn´t exists' ].
 ]
 
 { #category : 'validation' }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
-	(spaceships at: turn) = aSpaceship
+	(self spaceshipTurn ) = aSpaceship
 		ifFalse: [ Error signal: 'Its not your turn' ].
 ]
 

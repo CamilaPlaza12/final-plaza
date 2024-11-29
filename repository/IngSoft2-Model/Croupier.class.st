@@ -6,15 +6,35 @@ Class {
 		'playersCards',
 		'indexCards',
 		'permanentCardsPlayers',
-		'lastCardPlayed'
+		'lastCardPlayed',
+		'reversedCardEffect'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
 }
 
 { #category : 'initialization' }
-Croupier class >> handling: aDeckOfCards [ 
-	^(self new) handling: aDeckOfCards.
+Croupier class >> handling: arg1 [
+
+	^ self new handling: arg1
+]
+
+{ #category : 'jail' }
+Croupier >> applyDoubleEffectTo: aGameTurns [
+
+	aGameTurns applyDoubleEffect .
+]
+
+{ #category : 'jail' }
+Croupier >> applyReverseEffectTo: aGameTurns [
+
+	aGameTurns applyReverseEffect.
+]
+
+{ #category : 'jail' }
+Croupier >> applySkipEffectTo: aGameTurns [
+
+	aGameTurns applySkipEffect.
 ]
 
 { #category : 'action' }
