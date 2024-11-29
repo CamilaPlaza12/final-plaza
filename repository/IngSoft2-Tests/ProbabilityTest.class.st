@@ -189,3 +189,59 @@ ProbabilityTest >> test13When1000BoardsAreCreatedThenProbabilityGeneratorOfCards
 	sum := sum + (randomCellEffects at: index) cards ].	
 	self assert: ((sum // 1000) between: 9 and: 11)
 ]
+
+{ #category : 'tests' }
+ProbabilityTest >> test14WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfDoublesBetween0and10 [
+
+	| randomCards sum|
+	randomCards := OrderedCollection new.
+	sum := 0.
+	1 to: 1000 do: [ :index | 
+		randomCards add:
+			(CardGenerator setWithCards: 100) ].
+	1 to: randomCards size do: [ :index | 
+	sum := sum + (randomCards at: index) doubles].
+	self assert: (sum // 1000 between: 0 and: 10)
+]
+
+{ #category : 'tests' }
+ProbabilityTest >> test15WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfFreedomsBetween0and10 [
+
+	| randomCards sum|
+	randomCards := OrderedCollection new.
+	sum := 0.
+	1 to: 1000 do: [ :index | 
+		randomCards add:
+			(CardGenerator setWithCards: 100) ].
+	1 to: randomCards size do: [ :index | 
+	sum := sum + (randomCards at: index) freedoms].
+	self assert: (sum // 1000 between: 0 and: 10)
+]
+
+{ #category : 'tests' }
+ProbabilityTest >> test16WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfReversesBetween0and10 [
+
+	| randomCards sum|
+	randomCards := OrderedCollection new.
+	sum := 0.
+	1 to: 1000 do: [ :index | 
+		randomCards add:
+			(CardGenerator setWithCards: 100) ].
+	1 to: randomCards size do: [ :index | 
+	sum := sum + (randomCards at: index) reverses].
+	self assert: (sum // 1000 between: 0 and: 10)
+]
+
+{ #category : 'tests' }
+ProbabilityTest >> test17WhenADeckOf1000CardsIsCreatedThenCardGeneratorProbabilityOfSkipsBetween0and10 [
+
+	| randomCards sum|
+	randomCards := OrderedCollection new.
+	sum := 0.
+	1 to: 1000 do: [ :index | 
+		randomCards add:
+			(CardGenerator setWithCards: 100) ].
+	1 to: randomCards size do: [ :index | 
+	sum := sum + (randomCards at: index) skips].
+	self assert: (sum // 1000 between: 0 and: 10)
+]

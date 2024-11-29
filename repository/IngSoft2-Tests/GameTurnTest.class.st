@@ -776,3 +776,115 @@ GameTurnTest >> test21WhenDoubleCardAndSkipCardThenSpaceshipPlaysOneTime [
 
 	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
 ]
+
+{ #category : 'tests' }
+GameTurnTest >> test22WhenSkipCardChoosesCardThenCantThrowIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self should: [ 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard .] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a card' .	
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test23WhenSkipCardChoosesPlayerThenCantThrowIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self should: [ 	aSkipCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami' .] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a player' .	
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test24WhenDoubleCardChoosesPlayerThenCantThrowIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self should: [ 	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami' .] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a player' .	
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test25WhenDoubleCardChoosesCardThenCantThrowIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self should: [ 	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aSpeedCard .] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a card' .	
+]
