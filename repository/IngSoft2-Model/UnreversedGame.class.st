@@ -15,9 +15,3 @@ UnreversedGame >> reverseShiftsOrderFrom: aReverseEffect [
 
 	aReverseEffect changeState: ReversedGame new.
 ]
-
-{ #category : 'accessing' }
-UnreversedGame >> unreverseShiftsOrderFrom: aReverseEffect [
-
-
-]

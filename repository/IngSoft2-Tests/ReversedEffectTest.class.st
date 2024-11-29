@@ -374,3 +374,110 @@ ReversedEffectTest >> test10WhenReverseCardAndSpaceshipsWantsToPlayThenItsNotHer
 	raise: Error  
 	withMessage: 'Its not your turn' .	
 ]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test11WhenReverseCardChoosingACardThenCantPlayIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Cami'.
+	
+	self should: [ aReverseCard isPlayedOn: aBoardGame from: 'Cami'choosing: aSpeedCard] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a card' .	
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test12WhenReverseCardChoosingASpaceshipThenCantPlayIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+	
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self should: [	aReverseCard isPlayedOn: aBoardGame from: 'Cami' to: 'Vicky'. ] 
+	raise: Error  
+	withMessage: 'To play card, dont choose a player' .	
+]
+
+{ #category : 'tests' }
+ReversedEffectTest >> test13WhenReverseCardAndSpeedCardThenSpaceshipPosition [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection
+			                 with: aReverseCard
+			                 with: aSpeedCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	aSpeedCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami'.
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 1.
+
+	aBoardGame playTurnFor: 'Delfi'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 1.
+
+	aBoardGame playTurnFor: 'Cami'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 5
+]

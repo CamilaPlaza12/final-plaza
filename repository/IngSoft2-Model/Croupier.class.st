@@ -117,12 +117,6 @@ Croupier >> releaseFromJail: aSpaceshipPosition [
 	lastCardPlayed := FreedomCard new.
 ]
 
-{ #category : 'instance creation' }
-Croupier >> reversedCardEffect [
-
-	^ reversedCardEffect effect information
-]
-
 { #category : 'action' }
 Croupier >> takes: aCard from: aSpaceship [ 
 	| aPlayerCards |
