@@ -27,6 +27,14 @@ GameTurns >> applyReverseEffect [
 		 ]
 ]
 
+{ #category : 'jail' }
+GameTurns >> applySkipEffect [
+
+	self nextTurn.
+	
+	
+]
+
 { #category : 'initialization' }
 GameTurns >> initializeTurnsOf: aGroupOfSpaceships [
 

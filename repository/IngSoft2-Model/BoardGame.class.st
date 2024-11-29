@@ -111,6 +111,13 @@ BoardGame >> applyReverseEffect [
 
 ]
 
+{ #category : 'jail' }
+BoardGame >> applySkipEffect [
+	
+	croupier applySkipEffectTo: gameTurns .
+
+]
+
 { #category : 'effects' }
 BoardGame >> dealACardEffect [
 

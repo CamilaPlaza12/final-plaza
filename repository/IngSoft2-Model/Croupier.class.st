@@ -25,6 +25,12 @@ Croupier >> applyReverseEffectTo: aGameTurns [
 	aGameTurns applyReverseEffect.
 ]
 
+{ #category : 'jail' }
+Croupier >> applySkipEffectTo: aGameTurns [
+
+	aGameTurns applySkipEffect.
+]
+
 { #category : 'action' }
 Croupier >> cancellationCardTo: aCard [
 

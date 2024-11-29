@@ -1,5 +1,5 @@
 Class {
-	#name : 'ReverseCard',
+	#name : 'SkipCard',
 	#superclass : 'Object',
 	#instVars : [
 		'cardId'
@@ -9,32 +9,32 @@ Class {
 }
 
 { #category : 'accessing' }
-ReverseCard >> id [
+SkipCard >> id [
 
 	^ cardId
 ]
 
 { #category : 'accessing' }
-ReverseCard >> id: number [
+SkipCard >> id: number [
 
 	cardId := number
 ]
 
 { #category : 'accessing' }
-ReverseCard >> isPlayedOn: aBoardGame from: aSpaceship [
+SkipCard >> isPlayedOn: aBoardGame from: aSpaceship [
 
 	aBoardGame takes: self from: aSpaceship.
-	aBoardGame applyReverseEffect.
+	aBoardGame applySkipEffect.
 ]
 
 { #category : 'accessing' }
-ReverseCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+SkipCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	
 	Error signal: 'To play card, dont choose a card'.
 ]
 
 { #category : 'accessing' }
-ReverseCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+SkipCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 
 	Error signal: 'To play card, dont choose a player'
 ]
