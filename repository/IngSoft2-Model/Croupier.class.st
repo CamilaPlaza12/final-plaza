@@ -23,18 +23,21 @@ Croupier class >> handling: arg1 [
 Croupier >> applyDoubleEffectTo: aGameTurns [
 
 	aGameTurns applyDoubleEffect .
+	lastCardPlayed := DoubleCard new.
 ]
 
 { #category : 'jail' }
 Croupier >> applyReverseEffectTo: aGameTurns [
 
 	aGameTurns applyReverseEffect.
+	lastCardPlayed := ReverseCard new.
 ]
 
 { #category : 'jail' }
 Croupier >> applySkipEffectTo: aGameTurns [
 
 	aGameTurns applySkipEffect.
+	lastCardPlayed := SkipCard new.
 ]
 
 { #category : 'action' }

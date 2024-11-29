@@ -888,3 +888,105 @@ GameTurnTest >> test25WhenDoubleCardChoosesCardThenCantThrowIt [
 	raise: Error  
 	withMessage: 'To play card, dont choose a card' .	
 ]
+
+{ #category : 'tests' }
+GameTurnTest >> test26WhenDoubleCardRedoCardThenSpaceshipPlaysThreeTimes [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard with: aRedoCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aDoubleCard isPlayedOn: aBoardGame from: 'Vicky'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'.
+	aBoardGame playTurnFor: 'Vicky'.
+
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'.
+	aBoardGame playTurnFor: 'Vicky'.
+
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test27WhenSkipCardRedoCardThenSkipsTwoTurns [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aSkipCard with: aRedoCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aSkipCard isPlayedOn: aBoardGame from: 'Vicky'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami'.
+
+	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test28WhenReverseCardRedoCardThenUnreversedOrder [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aRedoCard with: aReverseCard ).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	aReverseCard isPlayedOn: aBoardGame from: 'Vicky'.
+	aRedoCard isPlayedOn: aBoardGame from: 'Vicky'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Cami'.
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self assert: aBoardGame spaceshipTurn equals: 'Delfi'.
+
+]
