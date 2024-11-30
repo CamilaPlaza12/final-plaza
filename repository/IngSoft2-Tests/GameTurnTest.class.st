@@ -845,10 +845,11 @@ GameTurnTest >> test23WhenSkipCardChoosesPlayerThenCantThrowIt [
 ]
 
 { #category : 'tests' }
-GameTurnTest >> test24WhenDoubleCardChoosesPlayerThenCantThrowIt [
+GameTurnTest >> test24WhenDoubleCardWantsToPlayButNoSpaceshipHasPlayed [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: aDoubleCard).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -866,19 +867,17 @@ GameTurnTest >> test24WhenDoubleCardChoosesPlayerThenCantThrowIt [
 		              with: 2
 		              managedBy: aCroupier.
 
-
 	self
-		should: [
-		aDoubleCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami' ]
+		should: [ aDoubleCard isPlayedOn: aBoardGame from: 'Vicky' ]
 		raise: Error
-		withMessage: 'To play card, dont choose a player'
+		withMessage: 'To play a card, a spaceship must have played first.'
 ]
 
 { #category : 'tests' }
 GameTurnTest >> test25WhenDoubleCardChoosesCardThenCantThrowIt [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aSkipCard).
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aDoubleCard ).
 	aCroupier := Croupier handling: aDeckOfCards.
 
 
@@ -971,4 +970,34 @@ GameTurnTest >> test27WhenSkipCardRedoCardThenSkipsTwoTurns [
 	aRedoCard isPlayedOn: aBoardGame from: 'Cami'.
 
 	self assert: aBoardGame spaceshipTurn equals: 'Vicky'
+]
+
+{ #category : 'tests' }
+GameTurnTest >> test28WhenDoubleCardChoosesPlayerThenCantThrowIt [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aDoubleCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 2
+		              managedBy: aCroupier.
+
+
+	self
+		should: [
+		aDoubleCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Cami' ]
+		raise: Error
+		withMessage: 'To play card, dont choose a player'
 ]

@@ -145,6 +145,7 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	rounds := anAmountOfRounds.
 	winner := ''.
 	lastCellEffect := NoEffect new.
+	totalDiceResults := 0.
 	croupier := aCroupier.
 	croupier dealCardsWhenGameIsStartedTo: manySpaceships.
 	self spaceshipsInitialization: manySpaceships.
@@ -386,6 +387,13 @@ BoardGame >> validatePlayingSpaceshipPosition [
 		                            :spaceshipPosition |
 		                            spaceshipPosition spaceships
 		                            == (self spaceships at: gameTurns turn) ]
+]
+
+{ #category : 'validation' }
+BoardGame >> validateSomeSpaceshipHasPlayed [
+
+	totalDiceResults = 0 ifTrue: [
+		Error signal: 'To play a card, a spaceship must have played first.' ]
 ]
 
 { #category : 'validation' }
