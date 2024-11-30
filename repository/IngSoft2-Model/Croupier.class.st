@@ -22,78 +22,82 @@ Croupier class >> handling: arg1 [
 { #category : 'jail' }
 Croupier >> applyDoubleEffectTo: aGameTurns [
 
-	aGameTurns applyDoubleEffect .
-	lastCardPlayed := DoubleCard new.
+	aGameTurns applyDoubleEffect.
+	lastCardPlayed := DoubleCard new
 ]
 
 { #category : 'jail' }
 Croupier >> applyReverseEffectTo: aGameTurns [
 
 	aGameTurns applyReverseEffect.
-	lastCardPlayed := ReverseCard new.
+	lastCardPlayed := ReverseCard new
 ]
 
 { #category : 'jail' }
 Croupier >> applySkipEffectTo: aGameTurns [
 
 	aGameTurns applySkipEffect.
-	lastCardPlayed := SkipCard new.
+	lastCardPlayed := SkipCard new
 ]
 
 { #category : 'action' }
 Croupier >> cancellationCardTo: aCard [
 
 	| aCardPlayers |
-	aCardPlayers := permanentCardsPlayers detect: [ :cardPlayers | 
-		                cardPlayers cards id = aCard id ]ifNone:[Error signal: 'That card does not exist'].
-	
-	permanentCardsPlayers remove: aCardPlayers .
-	lastCardPlayed := CancellationCard new.
+	aCardPlayers := permanentCardsPlayers
+		                detect: [ :cardPlayers |
+		                cardPlayers cards id = aCard id ]
+		                ifNone: [ Error signal: 'That card does not exist' ].
+
+	permanentCardsPlayers remove: aCardPlayers.
+	lastCardPlayed := CancellationCard new
 ]
 
 { #category : 'action' }
 Croupier >> dealACardTo: aSpaceship [
-		playersCards do: [ :playerCards | 
-		(playerCards spaceships = aSpaceship) ifTrue: [ 
+
+	playersCards do: [ :playerCards |
+		playerCards spaceships = aSpaceship ifTrue: [
 			playerCards cards add: (deckOfCards cards at: indexCards).
-			indexCards := indexCards \\ deckOfCards cards size + 1]].
+			indexCards := indexCards \\ deckOfCards cards size + 1 ] ]
 ]
 
 { #category : 'instance creation' }
 Croupier >> dealCardsWhenGameIsStartedTo: spaceships [
+
 	| size amountOfCards |
 	size := 0.
 	amountOfCards := 0.
 	playersCards := OrderedCollection new.
-	
-	[ spaceships size > size ] whileTrue: [ 
-		playersCards add: (PlayerCards
-				 of: (spaceships at: size + 1)).
+
+	[ spaceships size > size ] whileTrue: [
+		playersCards add: (PlayerCards of: (spaceships at: size + 1)).
 		self dealACardTo: (spaceships at: size + 1).
 		self dealACardTo: (spaceships at: size + 1).
-		
+
 		size := size + 1 ]
-	
-	
 ]
 
 { #category : 'cards' }
-Croupier >> dealLastPlayedCardTo: aSpaceship [ 
-	playersCards do: [ :playerCards | 
-		(playerCards spaceships = aSpaceship) ifTrue: [ 
-			playerCards cards add: lastCardPlayed .]].
+Croupier >> dealLastPlayedCardTo: aSpaceship [
+
+	playersCards do: [ :playerCards |
+		playerCards spaceships = aSpaceship ifTrue: [
+			playerCards cards add: lastCardPlayed ] ]
 ]
 
 { #category : 'instance creation' }
-Croupier >> handling: aDeckOfCards [ 
+Croupier >> handling: aDeckOfCards [
+
 	deckOfCards := aDeckOfCards.
 	indexCards := 1.
-	permanentCardsPlayers:= OrderedCollection new.
+	permanentCardsPlayers := OrderedCollection new
 ]
 
 { #category : 'action' }
 Croupier >> lastCardPlayed [
-	^lastCardPlayed .
+
+	^ lastCardPlayed
 ]
 
 { #category : 'action' }
@@ -101,8 +105,8 @@ Croupier >> permanentCardsOf: aSpaceship [
 
 	| anAmount |
 	anAmount := 0.
-	permanentCardsPlayers do: [ :cardPlayers | 
-		(cardPlayers spaceships includes: aSpaceship) ifTrue: [ 
+	permanentCardsPlayers do: [ :cardPlayers |
+		(cardPlayers spaceships includes: aSpaceship) ifTrue: [
 			anAmount := anAmount + (cardPlayers cards implementOn: self) ] ].
 	^ anAmount
 ]
@@ -112,7 +116,7 @@ Croupier >> playerCardOf: aSpaceship [
 
 	| aPlayerCards |
 	aPlayerCards := playersCards
-		                detect: [ :playerCards | 
+		                detect: [ :playerCards |
 		                playerCards spaceships = aSpaceship ]
 		                ifNone: [ Error signal: 'You are not playing' ].
 	^ aPlayerCards
@@ -129,12 +133,13 @@ Croupier >> recordPermanent: aCardPlayers [
 Croupier >> releaseFromJail: aSpaceshipPosition [
 
 	aSpaceshipPosition inJail release.
-	lastCardPlayed := FreedomCard new.
+	lastCardPlayed := FreedomCard new
 ]
 
 { #category : 'action' }
-Croupier >> takes: aCard from: aSpaceship [ 
+Croupier >> takes: aCard from: aSpaceship [
+
 	| aPlayerCards |
-	aPlayerCards:= self playerCardOf: aSpaceship.
-	aPlayerCards removeCard: aCard id.
+	aPlayerCards := self playerCardOf: aSpaceship.
+	aPlayerCards removeCard: aCard id
 ]

@@ -25,7 +25,8 @@ DoubleCard >> id: number [
 
 { #category : 'accessing' }
 DoubleCard >> isPlayedOn: aBoardGame from: aSpaceship [
-
+	
+	aBoardGame validateSomeSpaceshipHasPlayed.
 	aBoardGame takes: self from: aSpaceship.
 	aBoardGame applyDoubleEffect
 ]
