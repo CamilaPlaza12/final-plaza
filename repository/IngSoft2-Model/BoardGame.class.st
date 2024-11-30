@@ -254,32 +254,30 @@ BoardGame >> positions [
 BoardGame >> ranking [
 
 	| namesRanking |
-	namesRanking := spaceshipPositions sort: [ 
+	namesRanking := spaceshipPositions sort: [
 		                :spaceshipPosition1
-		                :spaceshipPosition2 | (spaceshipPosition1 >= spaceshipPosition2) ].
-	namesRanking size >= 3 ifTrue: [ 
+		                :spaceshipPosition2 |
+		                spaceshipPosition1 >= spaceshipPosition2 ].
+	namesRanking size >= 3 ifTrue: [
 		namesRanking := namesRanking first: 3 ].
-	^ namesRanking collect: [ :spaceshipPosition | 
+	^ namesRanking collect: [ :spaceshipPosition |
 		  spaceshipPosition spaceships ]
-
 ]
 
 { #category : 'action' }
-BoardGame >> recordPermanent: aCardPlayers [ 
-	croupier recordPermanent: aCardPlayers.
+BoardGame >> recordPermanent: aCardPlayers [
+
+	croupier recordPermanent: aCardPlayers
 ]
 
 { #category : 'jail' }
-BoardGame >> releaseFromJail: aSpaceship [ 
-	
-	|spaceshipPosition|
-	
-	spaceshipPosition := spaceshipPositions detect: [ 
-		                            :each | 
-		                            each spaceships
-		                            == aSpaceship].
-	
-	croupier releaseFromJail: spaceshipPosition.
+BoardGame >> releaseFromJail: aSpaceship [
+
+	| spaceshipPosition |
+	spaceshipPosition := spaceshipPositions detect: [ :each |
+		                     each spaceships == aSpaceship ].
+
+	croupier releaseFromJail: spaceshipPosition
 ]
 
 { #category : 'action' }
@@ -293,8 +291,8 @@ BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 { #category : 'cards' }
 BoardGame >> repeatCardTo: aSpaceship [
 
-	playingSpaceshipPosition := spaceshipPositions detect: [ 
-		                            :spaceshipPosition | 
+	playingSpaceshipPosition := spaceshipPositions detect: [
+		                            :spaceshipPosition |
 		                            spaceshipPosition spaceships
 		                            == aSpaceship ].
 
@@ -303,13 +301,14 @@ BoardGame >> repeatCardTo: aSpaceship [
 
 { #category : 'accessing' }
 BoardGame >> reversedEffect [
-	^ gameTurns reverseEffect .
+
+	^ gameTurns reverseEffect
 ]
 
 { #category : 'action' }
 BoardGame >> spaceshipPosition: aName [
 
-	^ (spaceshipPositions detect: [ :spaceshipPosition | 
+	^ (spaceshipPositions detect: [ :spaceshipPosition |
 		   spaceshipPosition spaceships == aName ]) position
 ]
 
@@ -321,7 +320,8 @@ BoardGame >> spaceshipTurn [
 
 { #category : 'accessing' }
 BoardGame >> spaceships [
-	^ gameTurns spaceships.
+
+	^ gameTurns spaceships
 ]
 
 { #category : 'initialization' }
@@ -331,9 +331,10 @@ BoardGame >> spaceshipsInitialization: aGroupOfSpaceships [
 	size := 0.
 	gameTurns := GameTurns initializeTurnsOf: aGroupOfSpaceships.
 	spaceshipPositions := OrderedCollection new.
-	[ aGroupOfSpaceships size > size ] whileTrue: [ 
-		spaceshipPositions add:
-			(SpaceshipPosition named: (aGroupOfSpaceships at: size + 1) on: (Position on: 1 at: 1)).
+	[ aGroupOfSpaceships size > size ] whileTrue: [
+		spaceshipPositions add: (SpaceshipPosition
+				 named: (aGroupOfSpaceships at: size + 1)
+				 on: (Position on: 1 at: 1)).
 		size := size + 1 ]
 ]
 
@@ -349,22 +350,20 @@ BoardGame >> throwDice [
 	| result |
 	result := 0.
 	maxDiceHits := true.
-	
-	dice do: [ :each | 
-        | throwResult |
-        throwResult := each throw.
-        result := result + throwResult.
-        (throwResult ~= each faces) ifTrue: [ maxDiceHits := false ].
-    ].
 
-	totalDiceResults := result.
+	dice do: [ :each |
+		| throwResult |
+		throwResult := each throw.
+		result := result + throwResult.
+		throwResult ~= each faces ifTrue: [ maxDiceHits := false ] ].
 
+	totalDiceResults := result
 ]
 
 { #category : 'cards' }
 BoardGame >> totalAmount [
 
-	^ totalDiceResults 
+	^ totalDiceResults
 	  + (croupier permanentCardsOf: playingSpaceshipPosition spaceships)
 ]
 
@@ -383,10 +382,10 @@ BoardGame >> validateKeepPlaying [
 { #category : 'action' }
 BoardGame >> validatePlayingSpaceshipPosition [
 
-	playingSpaceshipPosition := spaceshipPositions detect: [ 
-		                            :spaceshipPosition | 
+	playingSpaceshipPosition := spaceshipPositions detect: [
+		                            :spaceshipPosition |
 		                            spaceshipPosition spaceships
-		                            == (self spaceships at: (gameTurns turn)) ]
+		                            == (self spaceships at: gameTurns turn) ]
 ]
 
 { #category : 'validation' }
@@ -406,25 +405,25 @@ BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 { #category : 'validation' }
 BoardGame >> validateWinner: aSpaceshipPosition [
 
-	(aSpaceshipPosition position round) > rounds
-		ifTrue: [ 
+	aSpaceshipPosition position round > rounds
+		ifTrue: [
 			isOver := true.
 			winner := aSpaceshipPosition spaceships ]
 		ifFalse: [  ]
 ]
 
 { #category : 'validation' }
-BoardGame >> validates: aSpaceship canPlay: aCard [ 
+BoardGame >> validates: aSpaceship canPlay: aCard [
+
 	self validateSpaceshipTurnFor: aSpaceship.
-	self takes: aCard from: aSpaceship.
+	self takes: aCard from: aSpaceship
 ]
 
 { #category : 'jail' }
 BoardGame >> validatesSpaceshipInJail [
-	
-	maxDiceHits 
-	ifTrue: [ playingSpaceshipPosition inJail release. ].
-	
+
+	maxDiceHits ifTrue: [ playingSpaceshipPosition inJail release ].
+
 	spaceshipInJail := playingSpaceshipPosition inJail state
 ]
 
